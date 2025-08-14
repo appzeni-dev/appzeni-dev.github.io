@@ -1,6 +1,5 @@
 // papers.js
 // Renders a table of exams grouped by ExamID, with clickable rows for details
-
 document.addEventListener('DOMContentLoaded', function () {
   const resultsCount = document.getElementById('results-count');
   // Remove fetch and use global variable
@@ -230,3 +229,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
