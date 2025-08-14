@@ -1,0 +1,226 @@
+body.light #dangerModal .modal-content #dangerCancel {
+  background: #f3f4f6 !important;
+  color: #1a1a1a !important;
+  border: 1px solid #d1d5db !important;
+}
+body.light #dangerModal .modal-content #dangerCancel:hover,
+body.light #dangerModal .modal-content #dangerCancel:focus {
+  background: #e5e7eb !important;
+  color: #1a1a1a !important;
+}
+#dangerModal .modal-content {
+  background: #2a0909;
+  border: 2px solid #e11d48;
+  color: #fff;
+}
+body.light #dangerModal .modal-content {
+  background: #fff;
+  border: 2px solid #e11d48;
+  color: #1a1a1a;
+}
+body.light #dangerModal .modal-content .text-white {
+  color: #1a1a1a !important;
+}
+body.light #dangerModal .modal-content .danger-btn {
+  background: #e11d48 !important;
+  color: #fff !important;
+}
+/* Accent color utility classes for easy palette changes */
+:root {
+  --accent: #9b59ff;
+  --accent-light: #7c3aed;
+  --dark-bg: #0f0c10;
+  --panel-bg: #131019;
+  --muted: rgba(255,255,255,0.12);
+}
+.accent-bg {
+  background: var(--accent) !important;
+}
+.accent-text {
+  color: var(--accent) !important;
+}
+.accent-border {
+  border: 2px solid var(--accent) !important;
+}
+.focus\:ring-accent:focus {
+  --tw-ring-color: var(--accent) !important;
+}
+
+body.light {
+  --accent: var(--accent-light);
+  --dark-bg: #f8f8fa;
+  --panel-bg: #fff;
+  --muted: rgba(0,0,0,0.08);
+  color: #222;
+  background: #f8f8fa;
+}
+
+body.light header {
+  background: #ececf0 !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+body.light header .text-white,
+body.light header .text-white\/60,
+body.light header .text-white\/50 {
+  color: #111 !important;
+}
+body.light header a,
+body.light header button {
+  color: #111 !important;
+  border-color: #e5e7eb !important;
+  background: transparent !important;
+}
+body.light header a:hover,
+body.light header button:hover {
+  background: #e5e7eb !important;
+}
+body.light [class*="bg-\[\#080608\]"] { background: #f8f8fa !important; }
+body.light [class*="bg-\[\#121015\]"],
+body.light [class*="bg-\[\#141018\]"],
+body.light [class*="bg-\[\#1a1620\]"] { background: #fff !important; }
+body.light [class*="border-black"] { border-color: #e5e7eb !important; }
+body.light [class*="text-white\/60"] { color: #444 !important; }
+body.light [class*="text-white\/50"] { color: #888 !important; }
+
+/* Manage page file input contrast for light/dark themes */
+body.light #jsonFile {
+  background-color: #f3f4f6;
+  color: #222;
+  border: 1px solid #bbb;
+}
+body:not(.light) #jsonFile {
+  background-color: #232136;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* Pulse border animation */
+.pulse-border {
+  animation: pulse-border 700ms ease-out;
+}
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 25%, transparent); }
+  100% { box-shadow: 0 0 0 20px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+
+/* Subtle scrollbar styling */
+::-webkit-scrollbar { height: 10px; width: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 10px; }
+
+/* Danger button styles (always red with white text) */
+.danger-btn {
+  background: #b91c1c !important;
+  color: #fff !important;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0.75rem 1.5rem;
+  transition: background 0.2s;
+  border: none;
+}
+.danger-btn:hover, .danger-btn:focus {
+  background: #991b1b !important;
+}
+body.light .danger-btn {
+  background: #b91c1c !important;
+  color: #fff !important;
+}
+body:not(.light) .danger-btn {
+  background: #b91c1c !important;
+  color: #fff !important;
+}
+/* Danger Zone Card Styles */
+.danger-zone-card {
+  background: #1a1a1a;
+  border: 2px solid #e11d48;
+  color: #fff !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+body.light .danger-zone-card {
+  background: #fff;
+  border: 2px solid #e11d48;
+  color: #fff !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+/* Danger modal overlay always on top */
+#dangerModal {
+  position: fixed !important;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dangerModal.hidden {
+  display: none !important;
+}
+/* Modal z-index and overlay */
+#dangerModal {
+  z-index: 1000;
+}
+body.light ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.06); }
+
+/* About page modal and button styles */
+.clear-btn {
+  background: #e53935;
+  color: #fff;
+  border: 1px solid #b71c1c;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.clear-btn:hover {
+  background: #b71c1c;
+  color: #fff;
+}
+.cancel-btn {
+  background: #757575;
+  color: #fff;
+  border: 1px solid #616161;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.cancel-btn:hover {
+  background: #616161;
+  color: #fff;
+}
+.modal-bg {
+  background: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background: #141018;
+  border-color: #232136;
+  color: #fff;
+}
+.modal-close {
+  color: #fff;
+}
+.modal-text {
+  color: #fff;
+}
+body.light .clear-btn {
+  background: #ff5252;
+  color: #fff;
+  border-color: #e53935;
+}
+body.light .clear-btn:hover {
+  background: #e53935;
+  color: #fff;
+}
+body.light .cancel-btn {
+  background: #e0e0e0;
+  color: #222;
+  border-color: #bdbdbd;
+}
+body.light .cancel-btn:hover {
+  background: #bdbdbd;
+  color: #222;
+}
+body.light .modal-content {
+  background: #ececf0;
+  border-color: #d1d5db;
+  color: #222;
+}
+body.light .modal-close {
+  color: #222;
+}
+body.light .modal-text {
+  color: #222;
+}
