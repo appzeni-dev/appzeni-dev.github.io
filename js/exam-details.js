@@ -1,6 +1,5 @@
 // exam-details.js
 // Loads and displays all questions for a given ExamID, with meta info
-
 function getQueryParam(name) {
   const url = new URL(window.location.href);
   return url.searchParams.get(name);
@@ -245,3 +244,4 @@ const commandTermDefinitions = {
 function getCommandTermTooltip(term) {
   return commandTermDefinitions[term] || '';
 }
+
