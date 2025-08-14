@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Digital Society | Study</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-toggle.js" defer></script>
+</head>
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+  <header class="bg-[#0b0810] border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent" style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+        </div>
+        <nav class="hidden md:flex gap-3 items-center">
+          <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+            <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+            <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent" title="Toggle light/dark mode">🌓</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-row gap-8">
+      <!-- Sticky side nav for Past Quizzes -->
+      <nav id="past-quizzes-side-nav" class="hidden md:block w-64 min-w-[200px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4">
+      <style>
+        body.light #past-quizzes-list button:hover .last-saved,
+        body.light #past-quizzes-list button:focus .last-saved {
+          color: #fff !important;
+        }
+        #past-quizzes-list button:hover,
+        #past-quizzes-list button:focus {
+          color: #fff !important;
+        }
+        #past-quizzes-list button:hover .last-saved,
+        #past-quizzes-list button:focus .last-saved {
+          color: #fff !important;
+        }
+        body.light #past-quizzes-list .last-saved {
+          color: #444 !important;
+        }
+        body.light #past-quizzes-side-nav {
+          background: #f7f7fa !important;
+          border-color: #d1d5db !important;
+          color: #222 !important;
+        }
+        body.light #past-quizzes-list button {
+          background: #ececf0 !important;
+          color: #222 !important;
+          border-color: #d1d5db !important;
+        }
+        body.light #past-quizzes-list button:hover,
+        body.light #past-quizzes-list button:focus {
+          background: #9b59ff !important;
+          color: #fff !important;
+        }
+      </style>
+        <div class="font-bold mb-2 text-base">Past Quizzes</div>
+        <div id="past-quizzes-list" class="flex flex-col gap-2"></div>
+      </nav>
+      <!-- Main study content -->
+      <div class="flex-1 min-w-0">
+        <section class="mb-8">
+          <h1 class="text-2xl font-bold mb-6">Generate Quiz</h1>
+          <div class="flex flex-col gap-8">
+            <!-- Custom Quiz Section -->
+            <form id="quiz-form" class="flex flex-col gap-6 bg-[#141018] border border-black rounded-lg p-6 shadow">
+              <h2 class="text-xl font-semibold mb-2">Custom Quiz</h2>
+              <div class="flex flex-wrap gap-4">
+                <div>
+                  <label for="filter-source" class="block text-xs mb-1">Source</label>
+                  <select id="filter-source" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                </div>
+                <div>
+                  <label for="filter-author" class="block text-xs mb-1">Author</label>
+                  <select id="filter-author" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                </div>
+                <div>
+                  <label for="filter-paper" class="block text-xs mb-1">Paper Style</label>
+                  <select id="filter-paper" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                </div>
+                <div>
+                  <label for="filter-familiarity" class="block text-xs mb-1">Question Familiarity</label>
+                  <select id="filter-familiarity" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]">
+                    <option value="both">Both seen and unseen</option>
+                    <option value="seen">Seen</option>
+                    <option value="unseen">Unseen</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Tags accordion -->
+              <div>
+                <button id="tags-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
+                  <span>Course Connections</span>
+                  <span id="tags-accordion-arrow">▼</span>
+                </button>
+                <div id="tags-accordion-content" class="mt-2" style="display:none">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                      <div class="font-semibold mb-2">Concepts</div>
+                      <div id="concepts-list"></div>
+                    </div>
+                    <div>
+                      <div class="font-semibold mb-2">Content</div>
+                      <div id="content-list"></div>
+                    </div>
+                    <div>
+                      <div class="font-semibold mb-2">Contexts</div>
+                      <div id="contexts-list"></div>
+                    </div>
+                    <div>
+                      <div class="font-semibold mb-2">Challenges</div>
+                      <div id="challenges-list"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Command terms accordion -->
+              <div>
+                <button id="command-terms-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
+                  <span>Command Terms</span>
+                  <span id="command-terms-accordion-arrow">▼</span>
+                </button>
+                <div id="command-terms-accordion-content" class="mt-2" style="display:none">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div>
+                      <div class="font-semibold mb-2">AO1</div>
+                      <div id="ao1-list"></div>
+                    </div>
+                    <div>
+                      <div class="font-semibold mb-2">AO2</div>
+                      <div id="ao2-list"></div>
+                    </div>
+                    <div>
+                      <div class="font-semibold mb-2">AO3</div>
+                      <div id="ao3-list"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label for="num-questions" class="block text-sm mb-1">How many questions would you like to generate?</label>
+                <input id="num-questions" name="num-questions" type="number" min="1" max="100" value="10" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
+                <span id="num-questions-error" class="text-red-400 text-xs ml-2" style="display:none"></span>
+              </div>
+              <div class="flex gap-4 mt-2">
+                <button type="button" id="generate-custom" class="flex-1 quiz-btn quiz-btn-custom text-indigo-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate Custom Quiz</button>
+              </div>
+            </form>
+            <!-- Random Quiz Section -->
+            <form id="random-quiz-form" class="flex flex-col gap-4 bg-[#23202b] border border-black rounded-lg p-6 shadow">
+              <h2 class="text-xl font-semibold mb-2">Random Quiz</h2>
+              <div>
+                <label for="random-num-questions" class="block text-sm mb-1">How many questions would you like to generate?</label>
+                <input id="random-num-questions" name="random-num-questions" type="number" min="1" max="100" value="10" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
+                <span id="random-num-questions-error" class="text-red-400 text-xs ml-2" style="display:none"></span>
+              </div>
+              <div class="flex gap-4 mt-2">
+                <button type="button" id="generate-random" class="flex-1 quiz-btn quiz-btn-random text-blue-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate Random Quiz</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="js/study.js"></script>
+    <script>
+      // Past Quizzes logic
+      function getPastQuizzes() {
+        const raw = localStorage.getItem('questionBankQuizResponses');
+        if (!raw) return [];
+        try {
+          const obj = JSON.parse(raw);
+          return Object.entries(obj).map(([quizId, data]) => {
+            return {
+              id: quizId,
+              lastSave: data.lastSave,
+              responses: data.responses
+            };
+          });
+        } catch { return []; }
+      }
+      function renderPastQuizzes() {
+        const list = document.getElementById('past-quizzes-list');
+        if (!list) return;
+        let quizzes = getPastQuizzes();
+        // Order by most recently saved
+        quizzes = quizzes.sort((a, b) => (b.lastSave || 0) - (a.lastSave || 0));
+        if (quizzes.length === 0) {
+          list.innerHTML = '<div class="muted-text">No past quizzes found.</div>';
+          return;
+        }
+        list.innerHTML = '';
+        quizzes.forEach(q => {
+          const d = q.lastSave ? new Date(q.lastSave) : null;
+          const timeStr = d ? d.toLocaleString() : 'Unknown';
+          const btn = document.createElement('button');
+          btn.className = 'px-4 py-2 rounded bg-[#23202b] text-white text-left hover:bg-[#9b59ff] focus:outline-none focus:ring-2 focus:ring-accent border border-black';
+          btn.style.marginBottom = '2px';
+          btn.innerHTML = `<span class='font-semibold'>Quiz ID:</span> ${q.id} <span class='ml-2 text-xs last-saved'>(Last saved: ${timeStr})</span>`;
+          btn.onclick = function() {
+            window.location.href = `quiz.html?quiz=${encodeURIComponent(q.id)}`;
+          };
+          list.appendChild(btn);
+        });
+      }
+      document.addEventListener('DOMContentLoaded', renderPastQuizzes);
+    </script>
+    <style>
+      .quiz-btn {
+        background: transparent;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .quiz-btn:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        transition: opacity 0.2s;
+        opacity: 1;
+      }
+      .quiz-btn-custom {
+        border-image: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1) 1;
+      }
+      .quiz-btn-custom:before {
+        background: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1);
+        opacity: 0;
+      }
+      .quiz-btn-custom:hover:before, .quiz-btn-custom:focus:before {
+        opacity: 1;
+      }
+      .quiz-btn-custom:hover, .quiz-btn-custom:focus {
+        color: #fff !important;
+        border-color: transparent;
+      }
+      .quiz-btn-custom:hover:before, .quiz-btn-custom:focus:before {
+        opacity: 1;
+      }
+      .quiz-btn-custom:hover, .quiz-btn-custom:focus {
+        background: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1);
+      }
+      .quiz-btn-random {
+        border-image: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb) 1;
+      }
+      .quiz-btn-random:before {
+        background: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb);
+        opacity: 0;
+      }
+      .quiz-btn-random:hover:before, .quiz-btn-random:focus:before {
+        opacity: 1;
+      }
+      .quiz-btn-random:hover, .quiz-btn-random:focus {
+        color: #fff !important;
+        border-color: transparent;
+        background: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb);
+      }
+      .table-header-row th, .table-header {
+        transition: color 0.2s, background 0.2s;
+      }
+      body.light .table-header-row {
+        background: #ececf0 !important;
+      }
+      body.light .table-header {
+        color: #222 !important;
+      }
+      body:not(.light) .table-header-row {
+        background: #121015 !important;
+      }
+      body:not(.light) .table-header {
+        color: rgba(255,255,255,0.8) !important;
+      }
+      /* Light theme improvements for study form */
+      body.light #quiz-form,
+      body.light #random-quiz-form {
+        background: #f7f7fa !important;
+        border-color: #d1d5db !important;
+        color: #222 !important;
+      }
+      body.light #quiz-form input,
+      body.light #quiz-form select,
+      body.light #random-quiz-form input,
+      body.light #random-quiz-form select {
+        background: #fff !important;
+        color: #222 !important;
+        border-color: #d1d5db !important;
+      }
+      body.light #quiz-form button,
+      body.light #quiz-form .bg-gradient-to-r {
+        color: #111 !important;
+      }
+      body.light .quiz-btn {
+        color: #111 !important;
+      }
+      body.light .quiz-btn:hover,
+      body.light .quiz-btn:focus {
+        color: #fff !important;
+      }
+      body.light #tags-accordion-toggle,
+      body.light #command-terms-accordion-toggle {
+        background: #ececf0 !important;
+        color: #222 !important;
+        border-color: #d1d5db !important;
+      }
+      body.light #tags-accordion-toggle span,
+      body.light #command-terms-accordion-toggle span {
+        color: #222 !important;
+      }
+      body.light #tags-accordion-content,
+      body.light #command-terms-accordion-content {
+        background: #fff !important;
+        color: #222 !important;
+      }
+    </style>
+  </main>
+</body>
+</html>

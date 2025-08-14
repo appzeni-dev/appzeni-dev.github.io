@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Digital Society | Quiz</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-toggle.js" defer></script>
+</head>
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+  <header class="bg-[#0b0810] border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent" style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+        </div>
+        <nav class="hidden md:flex gap-3 items-center">
+          <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+          <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+          <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent" title="Toggle light/dark mode">🌓</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-row gap-8">
+      <!-- Sticky side nav for save features -->
+      <nav id="quiz-side-nav" class="hidden md:block w-56 min-w-[180px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4">
+        <div class="font-bold mb-2 text-base">Quiz Controls</div>
+        <button id="saveQuizResponsesBtn" class="mt-4 w-full px-4 py-2 rounded bg-[#9b59ff] text-white font-semibold hover:bg-[#7c3aed] focus:outline-none focus:ring-2 focus:ring-accent" style="color:#fff !important;">Save</button>
+        <div id="lastQuizSaveMsg" class="text-xs text-white/70 mt-1 mb-1"></div>
+        <div class="mt-2 flex items-center gap-2">
+          <label class="flex items-center cursor-pointer select-none">
+            <input type="checkbox" id="quizAutosaveToggle" class="accent-[#9b59ff] mr-2">
+            <span class="text-sm">Autosave every 60s</span>
+          </label>
+        </div>
+      </nav>
+      <!-- Main quiz content -->
+      <div class="flex-1 min-w-0">
+        <section class="mb-8">
+          <h1 class="text-2xl font-bold mb-6">Quiz</h1>
+          <div id="quiz-meta" class="mb-6"></div>
+          <div id="quiz-questions">
+            <div class="muted-text py-8 text-center">Loading quiz...</div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <!-- Copy to Clipboard & Ask ChatGPT for Feedback button (appears after quiz questions) -->
+    <div id="copyFeedbackBtnContainer" class="w-full flex justify-end mt-8">
+      <a id="copyFeedbackBtn" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+        class="px-6 py-3 rounded-lg bg-[#9b59ff] hover:bg-[#7c3aed] text-white font-bold shadow-lg border border-[#7c3aed] focus:outline-none focus:ring-2 focus:ring-accent copy-feedback-btn"
+        style="text-decoration:none; display:inline-block;">Copy to Clipboard &amp; Ask ChatGPT for Feedback</a>
+    </div>
+    <script src="js/quiz.js"></script>
+    <script>
+      // Copy quiz responses to clipboard in ChatGPT feedback format
+      document.addEventListener('DOMContentLoaded', function () {
+        // Move button after quiz-questions
+        const quizQuestions = document.getElementById('quiz-questions');
+        const btnContainer = document.getElementById('copyFeedbackBtnContainer');
+        if (quizQuestions && btnContainer) {
+          quizQuestions.insertAdjacentElement('afterend', btnContainer);
+        }
+        const copyBtn = document.getElementById('copyFeedbackBtn');
+        copyBtn.addEventListener('click', function (e) {
+          // Save responses before copying
+          if (typeof saveQuizResponses === 'function') {
+            saveQuizResponses(false); // Don't show status
+          }
+          // Prompt header
+          const promptHeader = `Provide feedback for the following Digital Society quiz responses. Below, you will find each question with the number of marks available, a sample markscheme and the user provided answer. Understand that the markscheme is not exhaustive and consider the cognitive demands of the command term when grading the response. Where a candidate is asked to give a number of responses (i.e., identify two ...), mark positively up to the maximum number of marks available and disregard incorect answers. In your feedback, state a summary of marks awarded and the total overall. Provide written feedback for questions where the candidate has misunderstood the question - keep it concise. For the 8 and 12 mark essays, the characteristics of responses should be considered: None: No attempt | Limited: Ineffective, listing, unstructured. | Partial/some: Superficial, descriptive | Adequate: Relevant, analytical, organised | In-depth: Insightful, precise, lucid. An in-depth response will demonstrate: Terminology relating to the question is used appropriately; There is a balanced analysis of the impacts and implications of the digital system on the stakeholders; References / comparisons are made with similar examples/scenarios; Any comments / opinions in the evaluation are supported/substantiated; Explicit references are made to the 3Cs (content, concepts, contexts); There is a clear structure to the response, for example an introduction, body and conclusion.\n\n`;
+          // Get quizId from sessionStorage (or URL if needed)
+          let quizId = '';
+          try {
+            quizId = sessionStorage.getItem('currentQuizId') || '';
+          } catch {}
+          // Get responses from localStorage
+          let responsesObj = {};
+          try {
+            const raw = localStorage.getItem('questionBankQuizResponses');
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              if (parsed && typeof parsed === 'object') responsesObj = parsed;
+            }
+          } catch {}
+          const entry = responsesObj[quizId] || { responses: [] };
+          // Get questions for this quiz from sessionStorage (or global data)
+          let questions = [];
+          try {
+            const quizDataRaw = sessionStorage.getItem('customQuiz');
+            if (quizDataRaw) {
+              const quizData = JSON.parse(quizDataRaw);
+              if (Array.isArray(quizData)) questions = quizData;
+            }
+          } catch {}
+          // Build output for each question
+          let output = '';
+          questions.forEach((q, i) => {
+            const respObj = entry.responses && entry.responses[i] ? entry.responses[i] : {};
+            const userAnswer = respObj.value || '';
+            output += `Question ${i + 1}:\n`;
+            output += `Question Text: ${q.QuestionText || ''}\n`;
+            output += `Marks Available: ${q.Marks || ''}\n`;
+            output += `Markscheme: ${q.AnswerText || ''}\n`;
+            output += `User Answer: ${userAnswer}\n\n`;
+          });
+          // Final prompt
+          const finalPrompt = promptHeader + output;
+          // Copy to clipboard
+          navigator.clipboard.writeText(finalPrompt).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy to Clipboard & Ask ChatGPT for Feedback'; }, 1500);
+          });
+          // Let the link open in a new tab
+        });
+      });
+    </script>
+    <style>
+      .muted-text { color: rgba(255,255,255,0.6); }
+      body.light .muted-text { color: #444 !important; }
+      .question-card { transition: background 0.2s, color 0.2s; }
+      .answer-reveal { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(.4,0,.2,1), opacity 0.3s; opacity: 0; }
+      .answer-reveal.open { max-height: 500px; opacity: 1; margin-top: 0.5rem; }
+      .answer-toggle-btn { cursor: pointer; color: var(--accent, #9b59ff); font-weight: 500; transition: color 0.2s; }
+      .answer-toggle-btn:hover { text-decoration: underline; }
+      body.light .answer-toggle-btn { color: var(--accent-light, #7c3aed); }
+      /* Quiz meta summary light theme improvements */
+      #quiz-meta .meta-label { font-weight: 600; }
+      #quiz-meta .meta-value { color: rgba(255,255,255,0.85); }
+      #quiz-meta > div { transition: background 0.2s, color 0.2s, border-color 0.2s; }
+      body.light #quiz-meta > div {
+        background: #f7f7fa !important;
+        color: #222 !important;
+        border-color: #d1d5db !important;
+      }
+      body.light #quiz-meta .meta-label { color: #222 !important; }
+      body.light #quiz-meta .meta-value { color: #222 !important; }
+  #saveQuizResponsesBtn { color: #fff !important; }
+  #lastQuizSaveMsg { color: #e5e7eb; }
+  body.light #lastQuizSaveMsg { color: #222 !important; }
+    </style>
+    <style>
+      body.light .copy-feedback-btn {
+        color: #fff !important;
+      }
+    </style>
+  </main>
+  </main>
+</body>
+</html>

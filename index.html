@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Digital Society | Home</title>
+
+    <!-- Tailwind CSS via CDN (latest stable at time of writing) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+    <!-- Top navigation -->
+    <header class="bg-[#0b0810] border-b border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html"
+                        class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent"
+                        style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+                </div>
+
+                <nav class="hidden md:flex gap-3 items-center">
+                    <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">About</a>
+                    <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">Questions</a>
+                    <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">Papers</a>
+                    <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">Study</a>
+                        <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400">Manage</a>
+                    <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400" title="Toggle light/dark mode">🌓</button>
+                </nav>
+
+                                <script>
+                                    // Theme toggle logic
+                                    const themeBtn = document.getElementById('themeToggle');
+                                    function setTheme(theme) {
+                                        document.body.classList.toggle('light', theme === 'light');
+                                        localStorage.setItem('theme', theme);
+                                    }
+                                    function toggleTheme() {
+                                        const isLight = document.body.classList.toggle('light');
+                                        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                                    }
+                                    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+                                    // On load, set theme from localStorage
+                                    if (localStorage.getItem('theme') === 'light') {
+                                        document.body.classList.add('light');
+                                    }
+                                </script>
+
+
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold tracking-tight">
+                <span class="mr-2">DIGITAL</span>
+                <span class="accent-text">SOCIETY</span>
+            </h1>
+        </div>
+
+        <!-- Top stat cards -->
+        <section aria-labelledby="top-stats" class="grid lg:grid-cols-3 gap-6 mb-8">
+            <div class="bg-[#121015] p-6 rounded shadow-sm border border-black flex items-center gap-4">
+                <div class="p-3 bg-[rgba(255,255,255,0.03)] rounded">
+                    <!-- simple list icon -->
+                    <svg class="h-8 w-8 text-white/80" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="4" y="5" width="16" height="2" rx="1" fill="white" opacity="0.9"></rect>
+                        <rect x="4" y="11" width="16" height="2" rx="1" fill="white" opacity="0.9"></rect>
+                        <rect x="4" y="17" width="10" height="2" rx="1" fill="white" opacity="0.9"></rect>
+                    </svg>
+                </div>
+                <div>
+                    <div class="text-sm text-white/60">Total Questions</div>
+                    <div id="total-results" class="text-3xl font-bold mt-1"></div>
+                </div>
+            </div>
+
+            <div class="bg-[#121015] p-6 rounded shadow-sm border border-black flex items-center gap-4">
+                <div class="p-3 bg-[rgba(255,255,255,0.03)] rounded">
+                    <svg class="h-8 w-8 text-white/80" viewBox="0 0 640 640" fill="none" aria-hidden="true">
+                        <!-- Adapted Font Awesome file icon for dashboard -->
+                        <path d="M192 64C156.7 64 128 92.7 128 128L128 512C128 547.3 156.7 576 192 576L448 576C483.3 576 512 547.3 512 512L512 234.5C512 217.5 505.3 201.2 493.3 189.2L386.7 82.7C374.7 70.7 358.5 64 341.5 64L192 64z" fill="white" opacity="0.9"/>
+                        <path d="M453.5 240L360 240C346.7 240 336 229.3 336 216L336 122.5L453.5 240z" fill="white" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="text-sm text-white/60">Total Papers</div>
+                    <div id="total-papers" class="text-3xl font-bold mt-1"></div>
+                </div>
+            </div>
+
+            <div class="bg-[#121015] p-6 rounded shadow-sm border border-black flex items-center gap-4">
+                <div class="p-3 bg-[rgba(255,255,255,0.03)] rounded">
+                    <svg class="h-8 w-8 text-white/80" viewBox="0 0 640 640" fill="none" aria-hidden="true">
+                        <!-- Adapted Font Awesome pencil icon for dashboard -->
+                        <path d="M100.4 417.2C104.5 402.6 112.2 389.3 123 378.5L304.2 197.3L338.1 163.4C354.7 180 389.4 214.7 442.1 267.4L476 301.3L442.1 335.2L260.9 516.4C250.2 527.1 236.8 534.9 222.2 539L94.4 574.6C86.1 576.9 77.1 574.6 71 568.4C64.9 562.2 62.6 553.3 64.9 545L100.4 417.2z" fill="white" opacity="0.9"/>
+                        <path d="M156 413.5C151.6 418.2 148.4 423.9 146.7 430.1L122.6 517L209.5 492.9C215.9 491.1 221.7 487.8 226.5 483.2L155.9 413.5z" fill="white" opacity="0.7"/>
+                        <path d="M510 267.4C493.4 250.8 458.7 216.1 406 163.4L372 129.5C398.5 103 413.4 88.1 416.9 84.6C430.4 71 448.8 63.4 468 63.4C487.2 63.4 505.6 71 519.1 84.6L554.8 120.3C568.4 133.9 576 152.3 576 171.4C576 190.5 568.4 209 554.8 222.5C551.3 226 536.4 240.9 509.9 267.4z" fill="white" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="text-sm text-white/60">Total Study</div>
+                    <div id="total-study" class="text-3xl font-bold mt-1"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main card -->
+        <section class="bg-[#141018] rounded-lg border border-black p-6 relative overflow-hidden">
+            <div class="text-center mb-4">
+                <h2 class="text-lg md:text-xl font-bold tracking-wide accent-text">Command Terms</h2>
+            </div>
+            <!-- carousel arrows (left) -->
+            <button id="prevBtn" aria-label="Previous event"
+                class="absolute left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- carousel arrows (right) -->
+            <button id="nextBtn" aria-label="Next event"
+                class="absolute right-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- Title -->
+            <div class="text-center mb-6">
+                <h2 id="paperTitle" class="text-xl md:text-2xl font-semibold"></h2>
+            </div>
+
+            <!-- Chart placeholder -->
+            <div class="flex justify-center mb-8">
+                <div id="chartPlaceholder"
+                    class="w-full max-w-3xl h-48 md:h-64 rounded border-2 border-purple-600/30 flex items-center justify-center text-white/50"
+                    role="img" aria-label="Chart placeholder"></div>
+            </div>
+
+            <!-- Metric tiles row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-total-questions"></div>
+                    <div class="text-sm text-white/60 mt-2">Total Questions (this Paper)</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-unique-terms"></div>
+                    <div class="text-sm text-white/60 mt-2">Unique Command Terms</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-most-common-term"></div>
+                    <div class="text-sm text-white/60 mt-2">Most Common Command Term</div>
+                </div>
+            </div>
+        </section>
+        <!-- Concepts aggregate card -->
+        <section class="bg-[#141018] rounded-lg border border-black p-6 relative overflow-hidden mt-10">
+            <div class="text-center mb-4">
+                <h2 class="text-lg md:text-xl font-bold tracking-wide accent-text">Concepts</h2>
+            </div>
+            <!-- carousel arrows (left) -->
+            <button id="conceptPrevBtn" aria-label="Previous concept paper"
+                class="absolute left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- carousel arrows (right) -->
+            <button id="conceptNextBtn" aria-label="Next concept paper"
+                class="absolute right-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- Title -->
+            <div class="text-center mb-6">
+                <h2 id="conceptPaperTitle" class="text-xl md:text-2xl font-semibold"></h2>
+            </div>
+
+            <!-- Chart placeholder -->
+            <div class="flex justify-center mb-8">
+                <div id="conceptChartPlaceholder"
+                    class="w-full max-w-3xl h-48 md:h-64 rounded border-2 border-purple-600/30 flex items-center justify-center text-white/50"
+                    role="img" aria-label="Concept chart placeholder"></div>
+            </div>
+
+            <!-- Metric tiles row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-total-concept-tags"></div>
+                    <div class="text-sm text-white/60 mt-2">Total Concept Tags (this Paper)</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-unique-concepts"></div>
+                    <div class="text-sm text-white/60 mt-2">Unique Concepts Used</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-most-common-concept"></div>
+                    <div class="text-sm text-white/60 mt-2">Most Common Concept</div>
+                </div>
+            </div>
+        </section>
+        <!-- Content aggregate card -->
+        <section class="bg-[#141018] rounded-lg border border-black p-6 relative overflow-hidden mt-10">
+            <div class="text-center mb-4">
+                <h2 class="text-lg md:text-xl font-bold tracking-wide accent-text">Content</h2>
+            </div>
+            <!-- carousel arrows (left) -->
+            <button id="contentPrevBtn" aria-label="Previous content paper"
+                class="absolute left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- carousel arrows (right) -->
+            <button id="contentNextBtn" aria-label="Next content paper"
+                class="absolute right-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- Title -->
+            <div class="text-center mb-6">
+                <h2 id="contentPaperTitle" class="text-xl md:text-2xl font-semibold">Digital Society Content</h2>
+            </div>
+
+            <!-- Chart placeholder -->
+            <div class="flex justify-center mb-8">
+                <div id="contentChartPlaceholder"
+                    class="w-full max-w-3xl h-48 md:h-64 rounded border-2 border-purple-600/30 flex items-center justify-center text-white/50"
+                    role="img" aria-label="Content chart placeholder"></div>
+            </div>
+
+            <!-- Metric tiles row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-total-content-tags"></div>
+                    <div class="text-sm text-white/60 mt-2">Total Content Tags (this Paper)</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-unique-content"></div>
+                    <div class="text-sm text-white/60 mt-2">Unique Content Used</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-most-common-content"></div>
+                    <div class="text-sm text-white/60 mt-2">Most Common Content</div>
+                </div>
+            </div>
+        </section>
+        <!-- Context aggregate card -->
+        <section class="bg-[#141018] rounded-lg border border-black p-6 relative overflow-hidden mt-10">
+            <div class="text-center mb-4">
+                <h2 class="text-lg md:text-xl font-bold tracking-wide accent-text">Contexts</h2>
+            </div>
+            <!-- carousel arrows (left) -->
+            <button id="contextPrevBtn" aria-label="Previous context paper"
+                class="absolute left-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- carousel arrows (right) -->
+            <button id="contextNextBtn" aria-label="Next context paper"
+                class="absolute right-6 top-1/2 -translate-y-1/2 h-14 w-14 rounded-full accent-border flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent">
+                <svg class="h-6 w-6 accent-text" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <!-- Title -->
+            <div class="text-center mb-6">
+                <h2 id="contextPaperTitle" class="text-xl md:text-2xl font-semibold">Digital Society Contexts</h2>
+            </div>
+
+            <!-- Chart placeholder -->
+            <div class="flex justify-center mb-8">
+                <div id="contextChartPlaceholder"
+                    class="w-full max-w-3xl h-48 md:h-64 rounded border-2 border-purple-600/30 flex items-center justify-center text-white/50"
+                    role="img" aria-label="Context chart placeholder"></div>
+            </div>
+
+            <!-- Metric tiles row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-total-context-tags"></div>
+                    <div class="text-sm text-white/60 mt-2">Total Context Tags (this Paper)</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-unique-context"></div>
+                    <div class="text-sm text-white/60 mt-2">Unique Contexts Used</div>
+                </div>
+                <div class="bg-[#1a1620] p-6 rounded-md text-center">
+                    <div class="text-4xl font-extrabold accent-text" id="metric-most-common-context"></div>
+                    <div class="text-sm text-white/60 mt-2">Most Common Context</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Global data must be loaded before dashboard logic -->
+        <script>
+        // Dashboard metrics using localStorage digitalSocietyQuestionBank
+        function getQuestionBank() {
+            try {
+                const raw = localStorage.getItem('digitalSocietyQuestionBank');
+                if (raw) return JSON.parse(raw);
+            } catch {}
+            return [];
+        }
+        function getTotalQuestions(data) {
+            return Array.isArray(data) ? data.length : 0;
+        }
+        // function getTotalPapers(data) {
+        //     const papers = new Set();
+        //     data.forEach(q => {
+        //         if (q.PaperID) papers.add(q.PaperID);
+        //     });
+        //     return papers.size;
+        // }
+        function getTotalStudyResponses() {
+            let examResponsesObj = {};
+            let quizResponsesObj = {};
+            try {
+                const examRaw = localStorage.getItem('questionBankExamResponses');
+                if (examRaw) {
+                    const parsed = JSON.parse(examRaw);
+                    if (parsed && typeof parsed === 'object') examResponsesObj = parsed;
+                }
+            } catch {}
+            try {
+                const quizRaw = localStorage.getItem('questionBankQuizResponses');
+                if (quizRaw) {
+                    const parsed = JSON.parse(quizRaw);
+                    if (parsed && typeof parsed === 'object') quizResponsesObj = parsed;
+                }
+            } catch {}
+            function countNonBlankResponses(obj) {
+                let count = 0;
+                for (const key in obj) {
+                    if (obj[key] && Array.isArray(obj[key].responses)) {
+                        count += obj[key].responses.filter(r => r && typeof r.value === 'string' && r.value.trim() !== '').length;
+                    }
+                }
+                return count;
+            }
+            return countNonBlankResponses(examResponsesObj) + countNonBlankResponses(quizResponsesObj);
+        }
+        function getUniqueTags(data, tagKey) {
+            const tags = new Set();
+            data.forEach(q => {
+                if (Array.isArray(q[tagKey])) q[tagKey].forEach(t => tags.add(t));
+            });
+            return tags.size;
+        }
+        function getMostCommon(data, key) {
+            const freq = {};
+            data.forEach(q => {
+                if (Array.isArray(q[key])) {
+                    q[key].forEach(t => { freq[t] = (freq[t]||0)+1; });
+                } else if (q[key]) {
+                    freq[q[key]] = (freq[q[key]]||0)+1;
+                }
+            });
+            let max = 0, val = '';
+            for (const k in freq) {
+                if (freq[k] > max) { max = freq[k]; val = k; }
+            }
+            return val;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const data = getQuestionBank();
+            // Top stat cards
+            const totalQuestionsEl = document.getElementById('total-results');
+            const totalPapersEl = document.getElementById('total-papers');
+            const totalStudyEl = document.getElementById('total-study');
+            if (totalQuestionsEl) totalQuestionsEl.textContent = getTotalQuestions(data);
+            if (totalStudyEl) {
+                const count = getTotalStudyResponses();
+                totalStudyEl.textContent = count + ' ' + (count === 1 ? 'response' : 'responses');
+            }
+            // Paper metrics
+            document.getElementById('metric-total-questions').textContent = getTotalQuestions(data);
+            document.getElementById('metric-unique-terms').textContent = getUniqueTags(data, 'CommandTerm');
+            document.getElementById('metric-most-common-term').textContent = getMostCommon(data, 'CommandTerm');
+            // Concept metrics
+            document.getElementById('metric-total-concept-tags').textContent = getUniqueTags(data, 'ConceptTags');
+            document.getElementById('metric-unique-concepts').textContent = getUniqueTags(data, 'ConceptTags');
+            document.getElementById('metric-most-common-concept').textContent = getMostCommon(data, 'ConceptTags');
+            // Content metrics
+            document.getElementById('metric-total-content-tags').textContent = getUniqueTags(data, 'ContentTags');
+            document.getElementById('metric-unique-content').textContent = getUniqueTags(data, 'ContentTags');
+            document.getElementById('metric-most-common-content').textContent = getMostCommon(data, 'ContentTags');
+            // Context metrics
+            document.getElementById('metric-total-context-tags').textContent = getUniqueTags(data, 'ContextTags');
+            document.getElementById('metric-unique-context').textContent = getUniqueTags(data, 'ContextTags');
+            document.getElementById('metric-most-common-context').textContent = getMostCommon(data, 'ContextTags');
+        });
+        </script>
+    <script src="js/dashboard.js"></script>
+    <style>
+        body.light .bg-\[\#121015\] svg,
+        body.light .bg-\[\#121015\] svg * {
+            color: #222 !important;
+            fill: #222 !important;
+            opacity: 1 !important;
+        }
+    </style>
+</body>
+
+</html>

@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About | Digital Society Question Bank</title>
+  <!-- Tailwind CSS via CDN (latest stable at time of writing) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/theme-toggle.js"></script>
+</head>
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+  <header class="bg-[#0b0810] border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent" style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+        </div>
+        <nav class="hidden md:flex gap-3 items-center">
+          <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+          <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+          <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent" title="Toggle light/dark mode">🌓</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-row gap-10">
+      <!-- Sticky side nav for headings -->
+      <nav id="about-nav" class="hidden md:block w-64 min-w-[200px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4 flex flex-col justify-between">
+        <div>
+          <div class="font-bold mb-2 text-base">Jump to Section</div>
+          <ul class="space-y-1">
+            <li><a href="#data" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.1 Data</a></li>
+            <li><a href="#algorithms" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.2 Algorithms</a></li>
+            <li><a href="#computers" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.3 Computers</a></li>
+            <li><a href="#networks" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.4 Networks & Internet</a></li>
+            <li><a href="#media" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.5 Media</a></li>
+            <li><a href="#ai" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.6 Artificial Intelligence</a></li>
+            <li><a href="#robots" class="block px-2 py-1 rounded text-[#9b59ff] font-medium hover:bg-[#232136] hover:text-white">3.7 Robots & Autonomous Tech</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- Main content -->
+      <div class="flex-1 min-w-0">
+        <section>
+          <h1 class="text-3xl font-bold mb-6 accent-text">About the Digital Society Content</h1>
+      <!-- 3.1 Data -->
+      <h2 id="data" class="text-2xl font-semibold mt-8 mb-2">3.1 Data</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>There are many types, uses and ways of representing data.</li>
+        <li>Big data and data analytics involve extracting and processing useful information in ways that are often impossible for humans.</li>
+        <li>There are significant opportunities and dilemmas associated with data in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.1A: Data as distinct from information, knowledge and wisdom</strong>
+          <ul>
+            <li>Data, information, knowledge and wisdom (DIKW) pyramid</li>
+          </ul>
+        </li>
+        <li><strong>3.1B: Types of data</strong>
+          <ul>
+            <li>Quantitative and qualitative</li>
+            <li>Cultural, financial, geographical, medical, meteorological, transport, scientific, statistical</li>
+            <li>Metadata</li>
+          </ul>
+        </li>
+        <li><strong>3.1C: Uses of data</strong>
+          <ul>
+            <li>Identify trends, patterns, connections and relationships between different items</li>
+            <li>Collect and organize measurable facts about people and communities</li>
+          </ul>
+        </li>
+        <li><strong>3.1D: Data life cycle</strong>
+          <ul>
+            <li>Create/collect/extract, store, process, analyse, access, preserve, reuse</li>
+          </ul>
+        </li>
+        <li><strong>3.1E: Ways to collect and organize data</strong>
+          <ul>
+            <li>Primary and secondary data collection</li>
+            <li>Databases organize and structure collections of data so that they are accessible, manageable and capable of being updated.</li>
+            <li>Data classifications and relationships</li>
+          </ul>
+        </li>
+        <li><strong>3.1F: Ways of representing data</strong>
+          <ul>
+            <li>Charts, tables, reports, infographics, visualizations</li>
+          </ul>
+        </li>
+        <li><strong>3.1G: Data security</strong>
+          <ul>
+            <li>Encryption, data masking, data erasure</li>
+            <li>Blockchain</li>
+          </ul>
+        </li>
+        <li><strong>3.1H: Characteristics and uses of big data and data analytics</strong>
+          <ul>
+            <li>Characteristics: Volume, variety, velocity, veracity</li>
+            <li>Uses: Predictive analysis, modelling, understanding past, current and future human behaviour</li>
+          </ul>
+        </li>
+        <li><strong>3.1I: Data dilemmas</strong>
+          <ul>
+            <li>Data bias, reliability and integrity</li>
+            <li>Control, ownership and access to data</li>
+            <li>Data privacy, anonymity and surveillance, personally identifiable information</li>
+          </ul>
+        </li>
+      </ul>
+
+  <!-- 3.2 Algorithms -->
+  <h2 id="algorithms" class="text-2xl font-semibold mt-8 mb-2">3.2 Algorithms</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>Algorithms are defined sequential steps or instructions to solve a specific problem or perform a task.</li>
+        <li>The effectiveness of an algorithm is often evaluated according to its efficiency.</li>
+        <li>The use of algorithms poses significant opportunities and dilemmas in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.2A: Characteristics of an algorithm</strong>
+          <ul>
+            <li>Unambiguous, finite, well-defined inputs and outputs, feasible</li>
+          </ul>
+        </li>
+        <li><strong>3.2B: Components of an algorithm</strong>
+          <ul>
+            <li>Instructions, variables, conditionals, loops</li>
+          </ul>
+        </li>
+        <li><strong>3.2C: Ways of representing algorithms</strong>
+          <ul>
+            <li>Natural language, flow chart, code, programming languages</li>
+          </ul>
+        </li>
+        <li><strong>3.2D: Uses of algorithms</strong>
+          <ul>
+            <li>Sorting, searching, filtering, prioritizing, classifying, associating, counting</li>
+            <li>Programming, software development and implementation</li>
+            <li>Machine learning, neural networks and in the creation of other algorithms</li>
+          </ul>
+        </li>
+        <li><strong>3.2E: Algorithmic dilemmas</strong>
+          <ul>
+            <li>Algorithmic bias and fairness</li>
+            <li>Algorithmic accountability and transparency, black box algorithms</li>
+            <li>Erosion and/or loss of human judgment</li>
+          </ul>
+        </li>
+      </ul>
+
+  <!-- 3.3 Computers -->
+  <h2 id="computers" class="text-2xl font-semibold mt-8 mb-2">3.3 Computers</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>A computer is a machine that automatically executes sets of instructions to perform specific tasks.</li>
+        <li>Computers have evolved over time and are increasingly ubiquitous in the everyday life of people and communities.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.3A: Types of computers</strong>
+          <ul>
+            <li>Mainframe</li>
+            <li>Server</li>
+            <li>Personal computer</li>
+            <li>Tablet</li>
+            <li>Smart/mobile device</li>
+            <li>Wearable computers and devices</li>
+          </ul>
+        </li>
+        <li><strong>3.3B: Components of a computer</strong>
+          <ul>
+            <li><strong>Hardware:</strong> Motherboard, central processing unit, memory, storage, graphics and sound components, power supply, input and output devices, sensors</li>
+            <li><strong>Interfaces:</strong> User interfaces, such as graphic and haptic</li>
+            <li><strong>Software:</strong>
+              <ul>
+                <li>Operating system software</li>
+                <li>Software applications, apps</li>
+                <li>Malicious software</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><strong>3.3C: Uses and forms of computer coding</strong>
+          <ul>
+            <li>Computer coding and programming uses specific languages and rules to communicate instructions to computers.</li>
+          </ul>
+        </li>
+        <li><strong>3.3D: Evolution of computing</strong>
+          <ul>
+            <li>Generations in computing, for example, first to fifth generations of computing</li>
+            <li>Moore’s law</li>
+            <li>Emerging areas of computing, such as quantum computing</li>
+          </ul>
+        </li>
+        <li>Displacement of humans in multiple contexts and roles</li>
+      </ul>
+
+  <!-- 3.4 Networks and the Internet -->
+  <h2 id="networks" class="text-2xl font-semibold mt-8 mb-2">3.4 Networks and the Internet</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>Networks connect computers, people and communities allowing data and information to be created, accessed and shared in a distributed manner.</li>
+        <li>Networks and the internet are defining features of digital society that have evolved over time.</li>
+        <li>Networks and the internet involve significant opportunities and dilemmas for life in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.4A: Types of computing networks</strong>
+          <ul>
+            <li>Wired, wireless, cloud</li>
+            <li>Personal area network (PAN), local area network (LAN), metropolitan area network (MAN), wide area network (WAN)</li>
+            <li>Client-server, peer-2-peer (P2P)</li>
+          </ul>
+        </li>
+        <li><strong>3.4B: Components of computing networks</strong>
+          <ul>
+            <li>Client, server, modem, router, switch, hub, channels, network interface</li>
+          </ul>
+        </li>
+        <li><strong>3.4C: Characteristics of computing networks</strong>
+          <ul>
+            <li>Standards and protocols: Interoperability, domain names, addresses</li>
+            <li>Security: Identification, authentication, encryption, firewall, proxy server, virtual private network (VPN), security layers</li>
+            <li>Capacity: Bandwidth, data compression, net neutrality</li>
+            <li>Infrastructure: Internet backbone</li>
+          </ul>
+        </li>
+        <li><strong>3.4D: Computing network providers and services</strong>
+          <ul>
+            <li>Providers: Internet service provider</li>
+            <li>Services: Chat, texting, email, file sharing, VOIP, online messaging, hosting, video conferencing</li>
+          </ul>
+        </li>
+        <li><strong>3.4E: The world wide web</strong>
+          <ul>
+            <li>As distinct from the internet</li>
+            <li>URL, HTTP, browser</li>
+            <li>The World Wide Web Consortium (W3C)</li>
+          </ul>
+        </li>
+        <li><strong>3.4F: Evolution of the internet and the web</strong>
+          <ul>
+            <li>Innovators and innovations in the early development of the internet and web</li>
+            <li>Rise of online social media platforms</li>
+            <li>Internet of things and ubiquitous networking</li>
+          </ul>
+        </li>
+        <li><strong>3.4G: Internet dilemmas</strong>
+          <ul>
+            <li>Privacy, anonymity and surveillance, the right to be forgotten, spyware, identity theft</li>
+            <li>Cybercrime, hacking, viruses, spam, social engineering, ransomware, denial of service, dark web, trolling</li>
+          </ul>
+        </li>
+      </ul>
+
+  <!-- 3.5 Media -->
+  <h2 id="media" class="text-2xl font-semibold mt-8 mb-2">3.5 Media</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>Digital media are defined by the convergence of computing, communication and content.</li>
+        <li>Digital media are created and distributed through multiple channels and platforms.</li>
+        <li>Digital media are associated with significant opportunities and dilemmas in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.5A: Types of digital media</strong>
+          <ul>
+            <li>Text, images, audio, animations, video, web pages</li>
+            <li>Gaming and e-sports</li>
+            <li>Blogs, vlogs, podcasts, vodcasting and live streaming, hashtags, memes, wikis, streaming media</li>
+            <li>User-generated content</li>
+            <li>Synthetic digital media, such as artificial intelligence (AI)-generated media and deepfakes</li>
+          </ul>
+        </li>
+        <li><strong>3.5B: Characteristics of digital media</strong>
+          <ul>
+            <li>Rapid sharing, efficient storage, interactive, linear and non-linear content, convergence (of media forms and layers)</li>
+          </ul>
+        </li>
+        <li><strong>3.5C: Immersive digital media</strong>
+          <ul>
+            <li>Augmented reality (AR), virtual reality (VR), mixed reality (MR) and X reality (XR) technologies</li>
+          </ul>
+        </li>
+        <li><strong>3.5D: Digital media dilemmas</strong>
+          <ul>
+            <li>Addiction and other psychological concerns</li>
+            <li>Impact on journalism, for example, fragmentation and consolidation in the media industry</li>
+            <li>Media authenticity, sourcing and deepfakes</li>
+            <li>Ownership, copyright, copyleft, Creative Commons, open source, remix culture</li>
+            <li>Media obsolescence and digital preservation</li>
+            <li>Censorship, content filters, moral panics, decency standards, offensive speech, objectionable content</li>
+          </ul>
+        </li>
+      </ul>
+
+  <!-- 3.6 Artificial Intelligence -->
+  <h2 id="ai" class="text-2xl font-semibold mt-8 mb-2">3.6 Artificial Intelligence</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>Artificial intelligence (AI) involves agents, devices or systems that adapt to perform tasks (or appear to do so) that once required the cognitive and creative processes of human beings.</li>
+        <li>There are several types of existing, emerging or proposed AI. These categories frequently overlap or are contested.</li>
+        <li>AI has evolved over time and introduces significant opportunities and dilemmas in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.6A: Types of AI: Strong, full, general, weak, narrow, domain-specified</strong>
+          <ul>
+            <li>The Turing test</li>
+          </ul>
+        </li>
+        <li><strong>3.6B: Types and uses of machine learning</strong>
+          <ul>
+            <li>Types: Supervised, unsupervised, reinforcement learning, deep learning</li>
+            <li>Uses: Pattern recognition, facial and speech recognition, image analysis, natural language processing</li>
+          </ul>
+        </li>
+        <li><strong>3.6C: Uses of artificial neural networks</strong>
+          <ul>
+            <li>Learn and model complex and non-linear relationships, generalize from initial inputs</li>
+          </ul>
+        </li>
+        <li><strong>3.6D: Evolution of AI</strong>
+          <ul>
+            <li>AI in science fiction and philosophy</li>
+            <li>Cybernetics</li>
+            <li>AI winters</li>
+            <li>The singularity and the multiplicity</li>
+          </ul>
+        </li>
+        <li><strong>3.6E: AI dilemmas</strong>
+          <ul>
+            <li>Fairness and bias in design and use</li>
+            <li>Accountability in design and use</li>
+            <li>Transparency in design and use</li>
+            <li>Uneven and underdeveloped laws, regulations and governance</li>
+            <li>Automation and displacement of humans in multiple contexts and roles</li>
+          </ul>
+        </li>
+      </ul>
+
+  <!-- 3.7 Robots and Autonomous Technologies -->
+  <h2 id="robots" class="text-2xl font-semibold mt-8 mb-2">3.7 Robots and Autonomous Technologies</h2>
+      <h3 class="text-lg font-semibold mb-1">Prescribed enduring understandings</h3>
+      <ul class="mb-4">
+        <li>Robots and autonomous technologies demonstrate a capacity to sense, think and/or act with some degree of independence.</li>
+        <li>Robots and autonomous technologies have evolved over time and are increasingly ubiquitous, pervasive and woven into the everyday lives of people and communities.</li>
+        <li>Robots and autonomous technologies introduce significant opportunities and dilemmas in digital society.</li>
+      </ul>
+      <h3 class="text-lg font-semibold mb-1">Prescribed areas for inquiry and supporting details</h3>
+      <ul>
+        <li><strong>3.7A: Types of robots and autonomous technologies</strong>
+          <ul>
+            <li>Robots: Industrial and productivity robots, service robots, social robots</li>
+            <li>Autonomous technologies: Internet of things, autonomous vehicles, drones, virtual assistants</li>
+          </ul>
+        </li>
+        <li><strong>3.7B: Characteristics of robots and autonomous technologies</strong>
+          <ul>
+            <li>Sensory inputs for spatial, environmental and operational awareness</li>
+            <li>The ability to logically reason with inputs, often using machine vision and/or machine learning</li>
+            <li>The ability to interact and move in physical environments, sometimes remotely</li>
+            <li>The demonstration of some degree of autonomy</li>
+          </ul>
+        </li>
+        <li><strong>3.7C: Evolution of robots and autonomous technologies</strong>
+          <ul>
+            <li>Early forms of robots and autonomous technology</li>
+            <li>Robots in science fiction and philosophy</li>
+            <li>Use in industry and manufacturing</li>
+            <li>Expanding interactions with human users</li>
+            <li>Machine consciousness, cognitive robotics and robot rights</li>
+          </ul>
+        </li>
+        <li><strong>3.7D: Robots and autonomous technology dilemmas</strong>
+          <ul>
+            <li>Anthropomorphism and the uncanny valley</li>
+            <li>Complexity of human and environmental interactions</li>
+            <li>Uneven and underdeveloped laws, regulations and governance</li>
+            <li>Displacement of humans in multiple contexts and roles</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+      </div>
+      <!-- Modal for clear local storage confirmation -->
+  <!-- All styles moved to css/styles.css and JS to js/about.js -->
+  <script src="js/about.js"></script>
+</body>
+</html>

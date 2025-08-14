@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Digital Society | Exam Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-toggle.js" defer></script>
+</head>
+
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+  <header class="bg-[#0b0810] border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="index.html"
+            class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent"
+            style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+        </div>
+        <nav class="hidden md:flex gap-3 items-center">
+          <a href="about.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+          <a href="manage.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+          <button id="themeToggle"
+            class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            title="Toggle light/dark mode">🌓</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-row gap-8">
+      <!-- Sticky side nav -->
+      <nav id="question-nav"
+        class="hidden md:block w-56 min-w-[180px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4">
+        <div class="font-bold mb-2 text-base">Questions</div>
+        <ul id="question-nav-list" class="space-y-1"></ul>
+        <button id="saveResponsesBtn"
+          class="mt-4 w-full px-4 py-2 rounded bg-[#9b59ff] text-white font-semibold hover:bg-[#7c3aed] focus:outline-none focus:ring-2 focus:ring-accent">Save</button>
+        <div id="lastSaveMsg" class="text-xs text-white/70 mt-1 mb-1"></div>
+        <div class="mt-2 flex items-center gap-2">
+          <label class="flex items-center cursor-pointer select-none">
+            <input type="checkbox" id="autosaveToggle" class="accent-[#9b59ff] mr-2">
+            <span class="text-sm">Autosave every 60s</span>
+          </label>
+        </div>
+      </nav>
+      <!-- Main content -->
+      <div class="flex-1 min-w-0">
+        <section class="mb-8">
+          <h1 class="text-2xl font-bold mb-4" id="exam-title">Exam Details</h1>
+          <div id="exam-meta" class="mb-6"></div>
+          <div id="questions-list">
+            <div class="muted-text py-8 text-center">Loading questions...</div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="js/exam-details.js"></script>
+    <script>
+      // Save and load responses for each exam/question, with autosave
+      document.addEventListener('DOMContentLoaded', function () {
+        const examId = new URLSearchParams(window.location.search).get('exam');
+        const saveBtn = document.getElementById('saveResponsesBtn');
+        const autosaveToggle = document.getElementById('autosaveToggle');
+        const questionsList = document.getElementById('questions-list');
+        const lastSaveMsg = document.getElementById('lastSaveMsg');
+        let autosaveInterval = null;
+        if (!examId || !saveBtn || !questionsList) return;
+        function getTextareas() {
+          return Array.from(questionsList.querySelectorAll('textarea'));
+        }
+        function getResponsesStore() {
+          const raw = localStorage.getItem('questionBankExamResponses');
+          try {
+            return raw ? JSON.parse(raw) : {};
+          } catch { return {}; }
+        }
+        function setResponsesStore(store) {
+          localStorage.setItem('questionBankExamResponses', JSON.stringify(store));
+        }
+        function getQuestionIdsFromData() {
+          // Get question IDs from digitalSocietyQuestionBank for current exam
+          let examQuestions = [];
+          try {
+            const raw = localStorage.getItem('digitalSocietyQuestionBank');
+            if (raw) {
+              const data = JSON.parse(raw);
+              examQuestions = data.filter(row => String(row.ExamID) === String(examId));
+            }
+          } catch { examQuestions = []; }
+          return examQuestions.map(q => q.ID);
+        }
+        function loadResponses() {
+          const store = getResponsesStore();
+          const entry = store[examId] || { responses: [], lastSave: null };
+          const responses = entry.responses || [];
+          const textareas = getTextareas();
+          textareas.forEach((ta, i) => {
+            const respObj = responses[i];
+            if (respObj && typeof respObj === 'object' && 'value' in respObj) {
+              ta.value = respObj.value;
+            } else if (typeof respObj === 'string') {
+              ta.value = respObj;
+            }
+          });
+        }
+        function saveResponses(showStatus = true) {
+          const store = getResponsesStore();
+          const questionIds = getQuestionIdsFromData();
+          const responses = getTextareas().map((ta, i) => ({ id: questionIds[i], value: ta.value }));
+          store[examId] = {
+            responses,
+            lastSave: Date.now()
+          };
+          setResponsesStore(store);
+          updateLastSaveMsg();
+          if (showStatus) {
+            saveBtn.textContent = 'Saved!';
+            setTimeout(() => { saveBtn.textContent = 'Save'; }, 1200);
+          }
+        }
+        function updateLastSaveMsg() {
+          const store = getResponsesStore();
+          const entry = store[examId];
+          if (entry && entry.lastSave) {
+            const d = new Date(parseInt(entry.lastSave));
+            lastSaveMsg.textContent = 'Last saved: ' + d.toLocaleTimeString();
+          } else {
+            lastSaveMsg.textContent = 'Last saved: Never';
+          }
+        }
+        saveBtn.addEventListener('click', () => saveResponses(true));
+        // Autosave logic
+        function startAutosave() {
+          if (autosaveInterval) clearInterval(autosaveInterval);
+          autosaveInterval = setInterval(() => saveResponses(false), 60000);
+        }
+        function stopAutosave() {
+          if (autosaveInterval) clearInterval(autosaveInterval);
+          autosaveInterval = null;
+        }
+        autosaveToggle.addEventListener('change', function () {
+          if (autosaveToggle.checked) {
+            startAutosave();
+          } else {
+            stopAutosave();
+          }
+        });
+        // Enable autosave by default
+        autosaveToggle.checked = true;
+        startAutosave();
+        updateLastSaveMsg();
+        // Load on page ready
+        loadResponses();
+        setTimeout(loadResponses, 500);
+      });
+    </script>
+    <style>
+      .muted-text {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      body.light .muted-text {
+        color: #444 !important;
+      }
+
+      .meta-label {
+        font-weight: 600;
+      }
+
+      .meta-value {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      body.light .meta-value {
+        color: #222 !important;
+      }
+
+      .question-card {
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .answer-reveal {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(.4, 0, .2, 1), opacity 0.3s;
+        opacity: 0;
+      }
+
+      .answer-reveal.open {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 0.5rem;
+      }
+
+      .answer-toggle-btn {
+        cursor: pointer;
+        color: var(--accent, #9b59ff);
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .answer-toggle-btn:hover {
+        text-decoration: underline;
+      }
+
+      body.light .answer-toggle-btn {
+        color: var(--accent-light, #7c3aed);
+      }
+
+      #question-nav-list a {
+        display: block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        color: #9b59ff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      #question-nav-list a:hover,
+      #question-nav-list a.active {
+        background: #232136;
+        color: #fff;
+      }
+
+      #saveResponsesBtn {
+        color: #fff !important;
+      }
+
+      #lastSaveMsg {
+        color: #e5e7eb;
+      }
+
+      body.light #lastSaveMsg {
+        color: #222 !important;
+      }
+        body.light #copyFeedbackBtn,
+        body.light .copy-feedback-btn,
+        body.light a#copyFeedbackBtn {
+          color: #fff !important;
+        }
+    </style>
+    <!-- Copy to Clipboard & Ask ChatGPT for Feedback button (appears after questions) -->
+    <div id="copyFeedbackBtnContainer" class="w-full flex justify-end mt-8">
+      <a id="copyFeedbackBtn" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+        class="px-6 py-3 rounded-lg bg-[#9b59ff] hover:bg-[#7c3aed] text-white font-bold shadow-lg border border-[#7c3aed] focus:outline-none focus:ring-2 focus:ring-accent"
+        style="text-decoration:none; display:inline-block;">Copy to Clipboard &amp; Ask ChatGPT for Feedback</a>
+    </div>
+    <script>
+      // Copy exam responses to clipboard in ChatGPT feedback format
+      document.addEventListener('DOMContentLoaded', function () {
+        // Move button after questions-list
+        const questionsList = document.getElementById('questions-list');
+        const btnContainer = document.getElementById('copyFeedbackBtnContainer');
+        if (questionsList && btnContainer) {
+          questionsList.insertAdjacentElement('afterend', btnContainer);
+        }
+        const copyBtn = document.getElementById('copyFeedbackBtn');
+        copyBtn.addEventListener('click', function (e) {
+          // Save responses before copying
+          if (typeof saveResponses === 'function') {
+            saveResponses(false); // Don't show status
+          }
+          // Prompt header
+          const promptHeader = `Provide feedback for the following Digital Society exam responses. Below, you will find each question with the number of marks available, a sample markscheme and the user provided answer. Understand that the markscheme is not exhaustive and consider the cognitive demands of the command term when grading the response. Where a candidate is asked to give a number of responses (i.e., identify two ...), mark positively up to the maximum number of marks available and disregard incorect answers. In your feedback, state a summary of marks awarded and the total overall. Provide written feedback for questions where the candidate has misunderstood the question - keep it concise. For the 8 and 12 mark essays, the characteristics of responses should be considered: None: No attempt | Limited: Ineffective, listing, unstructured. | Partial/some: Superficial, descriptive | Adequate: Relevant, analytical, organised | In-depth: Insightful, precise, lucid. An in-depth response will demonstrate: Terminology relating to the question is used appropriately; There is a balanced analysis of the impacts and implications of the digital system on the stakeholders; References / comparisons are made with similar examples/scenarios; Any comments / opinions in the evaluation are supported/substantiated; Explicit references are made to the 3Cs (content, concepts, contexts); There is a clear structure to the response, for example an introduction, body and conclusion.\n\n`;
+          // Get examId from URL
+          const examId = new URLSearchParams(window.location.search).get('exam');
+          // Get responses from localStorage
+          let responsesObj = {};
+          try {
+            const raw = localStorage.getItem('questionBankExamResponses');
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              if (parsed && typeof parsed === 'object') responsesObj = parsed;
+            }
+          } catch { }
+          const entry = responsesObj[examId] || { responses: [] };
+          // Get questions for this exam from digitalSocietyQuestionBank
+          let questions = [];
+          try {
+            const raw = localStorage.getItem('digitalSocietyQuestionBank');
+            if (raw) {
+              const data = JSON.parse(raw);
+              questions = data.filter(q => String(q.ExamID) === String(examId));
+            }
+          } catch { questions = []; }
+          // Build output for each question
+          let output = '';
+          questions.forEach((q, i) => {
+            const respObj = entry.responses && entry.responses[i] ? entry.responses[i] : {};
+            const userAnswer = respObj.value || '';
+            output += `Question ${i + 1}:\n`;
+            output += `Question Text: ${q.QuestionText || ''}\n`;
+            output += `Marks Available: ${q.Marks || ''}\n`;
+            output += `Markscheme: ${q.AnswerText || ''}\n`;
+            output += `User Answer: ${userAnswer}\n\n`;
+          });
+          // Final prompt
+          const finalPrompt = promptHeader + output;
+          // Copy to clipboard
+          navigator.clipboard.writeText(finalPrompt).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy to Clipboard & Ask ChatGPT for Feedback'; }, 1500);
+          });
+          // Let the link open in a new tab
+        });
+      });
+    </script>
+</body>
+
+</html>

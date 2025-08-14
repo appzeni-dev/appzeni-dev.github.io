@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Digital Society | Questions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/theme-toggle.js" defer></script>
+</head>
+<body class="bg-[#080608] text-white min-h-screen antialiased">
+  <header class="bg-[#0b0810] border-b border-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-4">
+          <a href="index.html" class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent" style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+        </div>
+        <nav class="hidden md:flex gap-3 items-center">
+          <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+          <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+          <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent" title="Toggle light/dark mode">🌓</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold">Browse Questions</h1>
+        <span id="results-count" class="text-xs text-white/60"></span>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-wrap gap-4 mb-2 items-end">
+            <div>
+              <label for="filter-source" class="block text-xs mb-1">Source</label>
+              <select id="filter-source" class="bg-[#141018] border border-black rounded px-2 py-1 text-sm"></select>
+            </div>
+            <div>
+              <label for="filter-author" class="block text-xs mb-1">Author</label>
+              <select id="filter-author" class="bg-[#141018] border border-black rounded px-2 py-1 text-sm"></select>
+            </div>
+            <div>
+              <label for="filter-paper" class="block text-xs mb-1">Paper Style</label>
+              <select id="filter-paper" class="bg-[#141018] border border-black rounded px-2 py-1 text-sm"></select>
+            </div>
+            <div class="flex-1 min-w-[180px]">
+              <label for="search-input" class="block text-xs mb-1">Search</label>
+              <input id="search-input" type="text" class="w-full bg-[#141018] border border-black rounded px-2 py-1 text-sm" placeholder="Search titles, question text, or answers..." />
+            </div>
+            <div>
+              <label class="block text-xs mb-1">Order</label>
+              <div class="flex gap-2 items-center">
+                <select id="order-select" class="bg-[#141018] border border-black rounded px-2 py-1 text-sm min-w-[120px]">
+                  <option value="date">Date</option>
+                  <option value="exam-status">Exam status</option>
+                  <option value="quiz-status">Quiz status</option>
+                </select>
+                <button id="order-dir-toggle" class="bg-[#141018] border border-black rounded px-2 py-1 text-sm min-w-[90px]" title="Toggle order direction">Direction <span id="order-dir">↓</span></button>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion for tags -->
+          <div class="mb-2 mt-0">
+            <button id="tags-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#141018] border border-black">
+              <span>Course Connections</span>
+              <span id="tags-accordion-arrow">▼</span>
+            </button>
+            <div id="tags-accordion-content" class="mt-2" style="display:none">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <div class="font-semibold mb-2">Concepts</div>
+                  <div id="concepts-list"></div>
+                </div>
+                <div>
+                  <div class="font-semibold mb-2">Content</div>
+                  <div id="content-list"></div>
+                </div>
+                <div>
+                  <div class="font-semibold mb-2">Contexts</div>
+                  <div id="contexts-list"></div>
+                </div>
+                <div>
+                  <div class="font-semibold mb-2">Challenges</div>
+                  <div id="challenges-list"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion for command terms -->
+          <div class="mb-2 mt-0">
+            <button id="command-terms-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#141018] border border-black">
+              <span>Command Terms</span>
+              <span id="command-terms-accordion-arrow">▼</span>
+            </button>
+            <div id="command-terms-accordion-content" class="mt-2" style="display:none">
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                  <div class="font-semibold mb-2">AO1</div>
+                  <div id="ao1-list">
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Define"> Define</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Identify"> Identify</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Describe"> Describe</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Outline"> Outline</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="State"> State</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-semibold mb-2">AO2</div>
+                  <div id="ao2-list">
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Analyse"> Analyse</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Distinguish"> Distinguish</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Explain"> Explain</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Suggest"> Suggest</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-semibold mb-2">AO3</div>
+                  <div id="ao3-list">
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Compare"> Compare</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Compare and contrast"> Compare and contrast</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Contrast"> Contrast</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Discuss"> Discuss</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Examine"> Examine</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Evaluate"> Evaluate</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Justify"> Justify</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="To what extent"> To what extent</label>
+                    <label class="block text-sm mb-1"><input type="checkbox" class="command-term-filter" value="Recommend"> Recommend</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="overflow-x-auto rounded shadow border border-black bg-[#141018]">
+            <table class="min-w-full text-sm">
+              <thead>
+                <tr class="table-header-row">
+                  <th class="px-2 py-2 text-left table-header">ID</th>
+                  <th class="px-2 py-2 text-left table-header">Exam ID</th>
+                  <th class="px-2 py-2 text-left table-header">Source</th>
+                  <th class="px-2 py-2 text-left table-header">Question</th>
+                  <th class="px-2 py-2 text-left table-header min-w-[140px]">Exam status</th>
+                  <th class="px-2 py-2 text-left table-header min-w-[140px]">Quiz status</th>
+                  <th class="px-2 py-2 text-left table-header min-w-[160px]">Action</th>
+                </tr>
+              </thead>
+              <tbody id="papers-table-body">
+                <tr><td colspan="5" class="text-center text-white/60 py-8" id="papers-loading">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Accordion toggle logic for tags and command terms
+      document.addEventListener('DOMContentLoaded', function() {
+        // Tags accordion
+        const tagsToggle = document.getElementById('tags-accordion-toggle');
+        const tagsContent = document.getElementById('tags-accordion-content');
+        const tagsArrow = document.getElementById('tags-accordion-arrow');
+        if (tagsToggle && tagsContent && tagsArrow) {
+          tagsToggle.addEventListener('click', function() {
+            const isOpen = tagsContent.style.display !== 'none';
+            tagsContent.style.display = isOpen ? 'none' : '';
+            tagsArrow.textContent = isOpen ? '▼' : '▲';
+          });
+        }
+        // Command terms accordion
+        const ctToggle = document.getElementById('command-terms-accordion-toggle');
+        const ctContent = document.getElementById('command-terms-accordion-content');
+        const ctArrow = document.getElementById('command-terms-accordion-arrow');
+        if (ctToggle && ctContent && ctArrow) {
+          ctToggle.addEventListener('click', function() {
+            const isOpen = ctContent.style.display !== 'none';
+            ctContent.style.display = isOpen ? 'none' : '';
+            ctArrow.textContent = isOpen ? '▼' : '▲';
+          });
+        }
+      });
+    </script>
+    <!-- Modal for answer reveal -->
+    <div id="answer-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60" style="display:none;">
+      <div class="bg-[#141018] border border-black rounded-lg shadow-lg p-6 max-w-lg w-full relative">
+        <button id="close-modal" class="absolute top-2 right-2 text-white text-xl font-bold">&times;</button>
+        <div class="font-bold mb-2">Answer</div>
+        <div id="modal-answer-text" class="text-white overflow-y-auto" style="max-height:300px;"></div>
+      </div>
+    </div>
+    <script src="js/browse.js"></script>
+    <style>
+      .table-header-row th, .table-header {
+        transition: color 0.2s, background 0.2s;
+      }
+      body.light .table-header-row {
+        background: #ececf0 !important;
+      }
+      body.light .table-header {
+        color: #222 !important;
+      }
+      body:not(.light) .table-header-row {
+        background: #121015 !important;
+      }
+      body:not(.light) .table-header {
+        color: rgba(255,255,255,0.8) !important;
+      }
+      /* Button restyling for table actions */
+      .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        padding: 0.375rem 1.25rem;
+        min-width: 90px;
+        min-height: 2.25rem;
+        transition: background 0.15s, color 0.15s, border 0.15s;
+        border: 1px solid transparent;
+        cursor: pointer;
+        font-size: 0.97rem;
+      }
+      .action-btn + .action-btn {
+        margin-left: 0.5rem;
+      }
+      body.light .action-btn {
+        background: #ececf0;
+        color: #1a1a1a;
+        border-color: #d1d5db;
+      }
+      body.light .action-btn:hover {
+        background: #d1d5db;
+        color: #111;
+      }
+      body:not(.light) .action-btn {
+        background: #23202b;
+        color: #f3f3f3;
+        border-color: #35313f;
+      }
+      body:not(.light) .action-btn:hover {
+        background: #35313f;
+        color: #fff;
+      }
+    </style>
+  </main>
+</body>
+</html>
