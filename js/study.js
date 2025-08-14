@@ -1,6 +1,5 @@
 // study.js
 // Handles quiz generation form logic and navigation to quiz page
-
 document.addEventListener('DOMContentLoaded', function () {
   const filterFamiliarity = document.getElementById('filter-familiarity');
   // Remove fetch and use global variable
@@ -264,3 +263,4 @@ document.addEventListener('DOMContentLoaded', function () {
   goToQuizPage(questions, config);
   });
 });
+
