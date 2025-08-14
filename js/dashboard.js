@@ -1,6 +1,5 @@
 // dashboard.js
 // Handles dashboard logic for index.html
-
 // Elements
 const titleEl = document.getElementById('paperTitle');
 const totalQuestionsEl = document.getElementById('metric-total-questions');
@@ -474,3 +473,4 @@ updateContextPaper(contextCurrentIndex);
 window.addEventListener('resize', () => {
   // placeholder for future chart resize
 });
+
