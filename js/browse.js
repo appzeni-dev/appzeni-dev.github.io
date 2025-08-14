@@ -1,6 +1,5 @@
 // papers.js
 // Renders a table of exams grouped by ExamID, with clickable rows for details
-
 document.addEventListener('DOMContentLoaded', function () {
   const resultsCount = document.getElementById('results-count');
   // const DATA_URL = 'data/Digital_Society_Question_Bank_Master_flat.json';
@@ -299,3 +298,4 @@ if (themeToggleBtn) {
     });
   }
 });
+
