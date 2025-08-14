@@ -1,7 +1,5 @@
 // theme-toggle.js
 // Handles theme toggling and persistence for all pages
-
-
 document.addEventListener('DOMContentLoaded', function () {
   const themeBtn = document.getElementById('themeToggle');
   if (!themeBtn) return;
@@ -21,3 +19,4 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.add('light');
   }
 });
+
