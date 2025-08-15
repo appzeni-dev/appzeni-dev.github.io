@@ -1,5 +1,6 @@
 // quiz.js
 // Loads and displays quiz questions from sessionStorage
+
 document.addEventListener('DOMContentLoaded', function () {
   const questionsList = document.getElementById('quiz-questions');
   const quizMeta = document.getElementById('quiz-meta');
@@ -326,4 +327,3 @@ document.addEventListener('DOMContentLoaded', function () {
   loadResponses();
   setTimeout(loadResponses, 500);
 });
-

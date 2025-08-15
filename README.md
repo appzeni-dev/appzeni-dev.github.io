@@ -32,7 +32,6 @@ js/
   exam-details.js         # Exam details logic
   dashboard.js            # Dashboard metrics logic
   theme-toggle.js         # Theme toggle logic
-images/                   # Icons and images
 ```
 
 ## Usage

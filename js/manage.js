@@ -1,5 +1,6 @@
 // manage.js
 // Handles file upload, validation, and localStorage for question bank
+
 document.addEventListener('DOMContentLoaded', function () {
     // Helper to get the question bank from localStorage
     function getQuestionBank() {
@@ -144,4 +145,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-

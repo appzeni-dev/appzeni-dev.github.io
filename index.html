@@ -400,22 +400,7 @@
                 const count = getTotalStudyResponses();
                 totalStudyEl.textContent = count + ' ' + (count === 1 ? 'response' : 'responses');
             }
-            // Paper metrics
-            document.getElementById('metric-total-questions').textContent = getTotalQuestions(data);
-            document.getElementById('metric-unique-terms').textContent = getUniqueTags(data, 'CommandTerm');
-            document.getElementById('metric-most-common-term').textContent = getMostCommon(data, 'CommandTerm');
-            // Concept metrics
-            document.getElementById('metric-total-concept-tags').textContent = getUniqueTags(data, 'ConceptTags');
-            document.getElementById('metric-unique-concepts').textContent = getUniqueTags(data, 'ConceptTags');
-            document.getElementById('metric-most-common-concept').textContent = getMostCommon(data, 'ConceptTags');
-            // Content metrics
-            document.getElementById('metric-total-content-tags').textContent = getUniqueTags(data, 'ContentTags');
-            document.getElementById('metric-unique-content').textContent = getUniqueTags(data, 'ContentTags');
-            document.getElementById('metric-most-common-content').textContent = getMostCommon(data, 'ContentTags');
-            // Context metrics
-            document.getElementById('metric-total-context-tags').textContent = getUniqueTags(data, 'ContextTags');
-            document.getElementById('metric-unique-context').textContent = getUniqueTags(data, 'ContextTags');
-            document.getElementById('metric-most-common-context').textContent = getMostCommon(data, 'ContextTags');
+            // All other dashboard metrics are set by dashboard.js
         });
         </script>
     <script src="js/dashboard.js"></script>
@@ -428,4 +413,5 @@
         }
     </style>
 </body>
+
 </html>

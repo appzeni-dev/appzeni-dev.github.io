@@ -1,5 +1,6 @@
 // dashboard.js
 // Handles dashboard logic for index.html
+
 // Elements
 const titleEl = document.getElementById('paperTitle');
 const totalQuestionsEl = document.getElementById('metric-total-questions');
@@ -336,14 +337,7 @@ document.addEventListener('keydown', function (ev) {
   if (ev.key === 'ArrowLeft') prevPaper();
 });
 
-// Remove fetch and use global variable
-// const DATA_URL = 'data/Digital_Society_Question_Bank_Master_flat.json';
-// fetch(DATA_URL)
-//   .then(res => res.json())
-//   .then(data => {
-//     ...
-//   });
-// Instead, use global variable
+
 let data = [];
 try {
   const raw = localStorage.getItem('digitalSocietyQuestionBank');
@@ -356,7 +350,8 @@ const paperSet = new Set(data.map(row => (row.ExamID || '') + '-' + (row.PaperID
 document.getElementById('total-papers').textContent = fmtNum(paperSet.size);
 const { paperAggs } = extractPaperAggregates(data);
 papers = ['1','2','3'].map(pid => paperAggs[pid]);
-updatePaper(currentIndex, false);
+// Immediately render Paper 1 metrics (including unique command terms) on page load
+updatePaper(0, false);
 
 // Concepts aggregate logic, grouped by paper
 const conceptList = [
@@ -473,4 +468,3 @@ updateContextPaper(contextCurrentIndex);
 window.addEventListener('resize', () => {
   // placeholder for future chart resize
 });
-
