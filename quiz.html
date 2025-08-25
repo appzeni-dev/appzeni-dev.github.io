@@ -74,11 +74,12 @@
             saveQuizResponses(false); // Don't show status
           }
           // Prompt header
-          const promptHeader = `Provide feedback for the following Digital Society quiz responses. Below, you will find each question with the number of marks available, a sample markscheme and the user provided answer. Understand that the markscheme is not exhaustive and consider the cognitive demands of the command term when grading the response. Where a candidate is asked to give a number of responses (i.e., identify two ...), mark positively up to the maximum number of marks available and disregard incorect answers. In your feedback, state a summary of marks awarded and the total overall. Provide written feedback for questions where the candidate has misunderstood the question - keep it concise. For the 8 and 12 mark essays, the characteristics of responses should be considered: None: No attempt | Limited: Ineffective, listing, unstructured. | Partial/some: Superficial, descriptive | Adequate: Relevant, analytical, organised | In-depth: Insightful, precise, lucid. An in-depth response will demonstrate: Terminology relating to the question is used appropriately; There is a balanced analysis of the impacts and implications of the digital system on the stakeholders; References / comparisons are made with similar examples/scenarios; Any comments / opinions in the evaluation are supported/substantiated; Explicit references are made to the 3Cs (content, concepts, contexts); There is a clear structure to the response, for example an introduction, body and conclusion.\n\n`;
-          // Get quizId from sessionStorage (or URL if needed)
+          const promptHeader = `Provide feedback for the following Digital Society quiz responses. Below, you will find each question with the number of marks available, a sample markscheme and the user provided answer. Understand that the markscheme is not exhaustive and consider the cognitive demands of the command term when grading the response. Where a candidate is asked to give a number of responses (i.e., identify two ...), mark positively up to the maximum number of marks available and disregard incorrect answers.\n\nIn your feedback, state a summary of marks awarded and the total overall. Provide written feedback for questions where the candidate has misunderstood the question - keep it concise.\n\nFor the 8 and 12 mark essays, the characteristics of responses should be considered:\nNone: No attempt\nLimited: Ineffective, listing, unstructured.\nPartial/some: Superficial, descriptive\nAdequate: Relevant, analytical, organised\nIn-depth: Insightful, precise, lucid.\n\nAn in-depth response will demonstrate: Terminology relating to the question is used appropriately; There is a balanced analysis of the impacts and implications of the digital system on the stakeholders; References / comparisons are made with similar examples/scenarios; Any comments / opinions in the evaluation are supported/substantiated; Explicit references are made to the 3Cs (content, concepts, contexts); There is a clear structure to the response, for example an introduction, body and conclusion.\n\n`;
+          // Get quizId from URL if present, else fallback to sessionStorage
           let quizId = '';
           try {
-            quizId = sessionStorage.getItem('currentQuizId') || '';
+            const params = new URLSearchParams(window.location.search);
+            quizId = params.get('quiz') || sessionStorage.getItem('currentQuizId') || '';
           } catch {}
           // Get responses from localStorage
           let responsesObj = {};
@@ -101,9 +102,15 @@
           } catch {}
           // Build output for each question
           let output = '';
+          // Fallback: if no responses, get textarea values
+          let textareas = document.querySelectorAll('#quiz-questions textarea');
           questions.forEach((q, i) => {
-            const respObj = entry.responses && entry.responses[i] ? entry.responses[i] : {};
-            const userAnswer = respObj.value || '';
+            let userAnswer = '';
+            if (entry.responses && entry.responses[i] && typeof entry.responses[i].value === 'string') {
+              userAnswer = entry.responses[i].value;
+            } else if (textareas[i]) {
+              userAnswer = textareas[i].value;
+            }
             output += `Question ${i + 1}:\n`;
             output += `Question Text: ${q.QuestionText || ''}\n`;
             output += `Marks Available: ${q.Marks || ''}\n`;
