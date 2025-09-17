@@ -2,6 +2,30 @@
 // Loads and displays quiz questions from sessionStorage
 
 document.addEventListener('DOMContentLoaded', function () {
+  // --- Share Quiz logic ---
+  const shareQuizBtn = document.getElementById('shareQuizBtn');
+  const shareQuizMsg = document.getElementById('shareQuizMsg');
+  if (shareQuizBtn) {
+    shareQuizBtn.addEventListener('click', function() {
+      // Get question IDs in order
+      const ids = questions.map(q => q.ID).filter(Boolean);
+      const idString = ids.join(',');
+      navigator.clipboard.writeText(idString).then(() => {
+        if (shareQuizMsg) {
+          shareQuizMsg.textContent = 'Quiz question IDs copied!';
+          shareQuizMsg.style.display = '';
+          setTimeout(() => { shareQuizMsg.style.display = 'none'; }, 1500);
+        }
+        shareQuizBtn.textContent = 'Copied!';
+        setTimeout(() => { shareQuizBtn.textContent = 'Share Quiz'; }, 1200);
+      }, () => {
+        if (shareQuizMsg) {
+          shareQuizMsg.textContent = 'Failed to copy.';
+          shareQuizMsg.style.display = '';
+        }
+      });
+    });
+  }
   const questionsList = document.getElementById('quiz-questions');
   const quizMeta = document.getElementById('quiz-meta');
   let questions = [];
