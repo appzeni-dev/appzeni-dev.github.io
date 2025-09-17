@@ -36,6 +36,62 @@ document.addEventListener('DOMContentLoaded', function () {
   const ao2List = document.getElementById('ao2-list');
   const ao3List = document.getElementById('ao3-list');
 
+  // Preset Quiz elements
+  const presetForm = document.getElementById('preset-quiz-form');
+  const presetIdsInput = document.getElementById('preset-ids');
+  const presetIdsError = document.getElementById('preset-ids-error');
+  const generatePresetBtn = document.getElementById('generate-preset');
+  // Preset Quiz logic
+  function validatePresetIds(input, errorSpan) {
+    const val = input.value.trim();
+    if (!val) {
+      errorSpan.textContent = 'Please enter at least one question ID.';
+      errorSpan.style.display = '';
+      return false;
+    }
+    // Validate IDs are numbers and exist in allData
+    const ids = val.split(',').map(s => s.trim()).filter(Boolean);
+    if (!ids.length) {
+      errorSpan.textContent = 'Please enter at least one question ID.';
+      errorSpan.style.display = '';
+      return false;
+    }
+    // Check if all IDs exist in allData
+    const allIds = new Set(allData.map(q => String(q.ID)));
+    const invalid = ids.filter(id => !allIds.has(id));
+    if (invalid.length) {
+      errorSpan.textContent = `Invalid ID(s): ${invalid.join(', ')}`;
+      errorSpan.style.display = '';
+      return false;
+    }
+    errorSpan.textContent = '';
+    errorSpan.style.display = 'none';
+    return true;
+  }
+
+  presetIdsInput && presetIdsInput.addEventListener('input', function() {
+    validatePresetIds(presetIdsInput, presetIdsError);
+  });
+
+  generatePresetBtn && generatePresetBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!validatePresetIds(presetIdsInput, presetIdsError)) return;
+    const ids = presetIdsInput.value.split(',').map(s => s.trim()).filter(Boolean);
+    // Find questions in order of IDs entered
+    const questions = ids.map(id => allData.find(q => String(q.ID) === id)).filter(Boolean);
+    // Gather config for preset: just the IDs
+    const config = {
+      source: '',
+      author: '',
+      paper: '',
+      tags: {},
+      commandTerms: [],
+      numQuestions: questions.length,
+      presetIds: ids
+    };
+    goToQuizPage(questions, config);
+  });
+
   // allData is already initialized above
 
   function renderDropdown(select, values, label) {
