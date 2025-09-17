@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,20 +9,30 @@
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/theme-toggle.js" defer></script>
 </head>
+
 <body class="bg-[#080608] text-white min-h-screen antialiased">
   <header class="bg-[#0b0810] border-b border-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center space-x-4">
-          <a href="index.html" class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent" style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
+          <a href="index.html"
+            class="h-8 flex items-center px-3 py-1 rounded font-bold text-lg tracking-wide text-white focus:outline-none focus:ring-2 focus:ring-accent"
+            style="text-decoration:none;">QUESTION BANK, BUT GOOD.</a>
         </div>
         <nav class="hidden md:flex gap-3 items-center">
-          <a href="about.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
-          <a href="browse.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
-          <a href="papers.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
-          <a href="study.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
-            <a href="manage.html" class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
-            <button id="themeToggle" class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent" title="Toggle light/dark mode">🌓</button>
+          <a href="about.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">About</a>
+          <a href="browse.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Questions</a>
+          <a href="papers.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Papers</a>
+          <a href="study.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Study</a>
+          <a href="manage.html"
+            class="px-4 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent">Manage</a>
+          <button id="themeToggle"
+            class="px-3 py-2 rounded border border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            title="Toggle light/dark mode">🌓</button>
         </nav>
       </div>
     </div>
@@ -29,39 +40,46 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <div class="flex flex-row gap-8">
       <!-- Sticky side nav for Past Quizzes -->
-      <nav id="past-quizzes-side-nav" class="hidden md:block w-64 min-w-[200px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4">
-      <style>
-        body.light #past-quizzes-list button:hover .last-saved,
-        body.light #past-quizzes-list button:focus .last-saved {
-          color: #fff !important;
-        }
-        #past-quizzes-list button:hover,
-        #past-quizzes-list button:focus {
-          color: #fff !important;
-        }
-        #past-quizzes-list button:hover .last-saved,
-        #past-quizzes-list button:focus .last-saved {
-          color: #fff !important;
-        }
-        body.light #past-quizzes-list .last-saved {
-          color: #444 !important;
-        }
-        body.light #past-quizzes-side-nav {
-          background: #f7f7fa !important;
-          border-color: #d1d5db !important;
-          color: #222 !important;
-        }
-        body.light #past-quizzes-list button {
-          background: #ececf0 !important;
-          color: #222 !important;
-          border-color: #d1d5db !important;
-        }
-        body.light #past-quizzes-list button:hover,
-        body.light #past-quizzes-list button:focus {
-          background: #9b59ff !important;
-          color: #fff !important;
-        }
-      </style>
+      <nav id="past-quizzes-side-nav"
+        class="hidden md:block w-64 min-w-[200px] max-h-[80vh] overflow-y-auto sticky top-20 self-start bg-[#141018] border border-black rounded p-4">
+        <style>
+          body.light #past-quizzes-list button:hover .last-saved,
+          body.light #past-quizzes-list button:focus .last-saved {
+            color: #fff !important;
+          }
+
+          #past-quizzes-list button:hover,
+          #past-quizzes-list button:focus {
+            color: #fff !important;
+          }
+
+          #past-quizzes-list button:hover .last-saved,
+          #past-quizzes-list button:focus .last-saved {
+            color: #fff !important;
+          }
+
+          body.light #past-quizzes-list .last-saved {
+            color: #444 !important;
+          }
+
+          body.light #past-quizzes-side-nav {
+            background: #f7f7fa !important;
+            border-color: #d1d5db !important;
+            color: #222 !important;
+          }
+
+          body.light #past-quizzes-list button {
+            background: #ececf0 !important;
+            color: #222 !important;
+            border-color: #d1d5db !important;
+          }
+
+          body.light #past-quizzes-list button:hover,
+          body.light #past-quizzes-list button:focus {
+            background: #9b59ff !important;
+            color: #fff !important;
+          }
+        </style>
         <div class="font-bold mb-2 text-base">Past Quizzes</div>
         <div id="past-quizzes-list" class="flex flex-col gap-2"></div>
       </nav>
@@ -76,19 +94,23 @@
               <div class="flex flex-wrap gap-4">
                 <div>
                   <label for="filter-source" class="block text-xs mb-1">Source</label>
-                  <select id="filter-source" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                  <select id="filter-source"
+                    class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
                 </div>
                 <div>
                   <label for="filter-author" class="block text-xs mb-1">Author</label>
-                  <select id="filter-author" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                  <select id="filter-author"
+                    class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
                 </div>
                 <div>
                   <label for="filter-paper" class="block text-xs mb-1">Paper Style</label>
-                  <select id="filter-paper" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
+                  <select id="filter-paper"
+                    class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]"></select>
                 </div>
                 <div>
                   <label for="filter-familiarity" class="block text-xs mb-1">Question Familiarity</label>
-                  <select id="filter-familiarity" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]">
+                  <select id="filter-familiarity"
+                    class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm min-w-[120px]">
                     <option value="both">Both seen and unseen</option>
                     <option value="seen">Seen</option>
                     <option value="unseen">Unseen</option>
@@ -97,7 +119,8 @@
               </div>
               <!-- Tags accordion -->
               <div>
-                <button id="tags-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
+                <button id="tags-accordion-toggle" type="button"
+                  class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
                   <span>Course Connections</span>
                   <span id="tags-accordion-arrow">▼</span>
                 </button>
@@ -124,7 +147,8 @@
               </div>
               <!-- Command terms accordion -->
               <div>
-                <button id="command-terms-accordion-toggle" type="button" class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
+                <button id="command-terms-accordion-toggle" type="button"
+                  class="w-full flex justify-between items-center font-semibold text-base px-2 py-1 rounded bg-[#23202b] border border-black mb-2">
                   <span>Command Terms</span>
                   <span id="command-terms-accordion-arrow">▼</span>
                 </button>
@@ -146,26 +170,127 @@
                 </div>
               </div>
               <div>
-                <label for="num-questions" class="block text-sm mb-1">How many questions would you like to generate?</label>
-                <input id="num-questions" name="num-questions" type="number" min="1" max="100" value="10" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
+                <label for="num-questions" class="block text-sm mb-1">How many questions would you like to
+                  generate?</label>
+                <input id="num-questions" name="num-questions" type="number" min="1" max="100" value="10"
+                  class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
                 <span id="num-questions-error" class="text-red-400 text-xs ml-2" style="display:none"></span>
               </div>
               <div class="flex gap-4 mt-2">
-                <button type="button" id="generate-custom" class="flex-1 quiz-btn quiz-btn-custom text-indigo-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate Custom Quiz</button>
+                <button type="button" id="generate-custom"
+                  class="flex-1 quiz-btn quiz-btn-custom text-indigo-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate
+                  Custom Quiz</button>
               </div>
             </form>
             <!-- Random Quiz Section -->
-            <form id="random-quiz-form" class="flex flex-col gap-4 bg-[#23202b] border border-black rounded-lg p-6 shadow">
+            <form id="random-quiz-form"
+              class="flex flex-col gap-4 bg-[#23202b] border border-black rounded-lg p-6 shadow">
               <h2 class="text-xl font-semibold mb-2">Random Quiz</h2>
               <div>
-                <label for="random-num-questions" class="block text-sm mb-1">How many questions would you like to generate?</label>
-                <input id="random-num-questions" name="random-num-questions" type="number" min="1" max="100" value="10" class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
+                <label for="random-num-questions" class="block text-sm mb-1">How many questions would you like to
+                  generate?</label>
+                <input id="random-num-questions" name="random-num-questions" type="number" min="1" max="100" value="10"
+                  class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-32" required />
                 <span id="random-num-questions-error" class="text-red-400 text-xs ml-2" style="display:none"></span>
               </div>
               <div class="flex gap-4 mt-2">
-                <button type="button" id="generate-random" class="flex-1 quiz-btn quiz-btn-random text-blue-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate Random Quiz</button>
+                <button type="button" id="generate-random"
+                  class="flex-1 quiz-btn quiz-btn-random text-blue-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate
+                  Random Quiz</button>
               </div>
             </form>
+            <!-- Preset Quiz Section -->
+            <form id="preset-quiz-form"
+              class="flex flex-col gap-4 bg-[#23202b] border border-black rounded-lg p-6 shadow">
+              <h2 class="text-xl font-semibold mb-2">Preset Quiz</h2>
+              <div>
+                <label for="preset-ids" class="block text-sm mb-1">Enter comma-separated Question IDs:</label>
+                <input id="preset-ids" name="preset-ids" type="text"
+                  class="bg-[#23202b] border border-black rounded px-2 py-1 text-sm w-full preset-ids-input"
+                  placeholder="e.g. 101, 102, 103" required />
+                <span id="preset-ids-error" class="text-red-400 text-xs ml-2" style="display:none"></span>
+              </div>
+              <div class="flex gap-4 mt-2">
+                <button type="button" id="generate-preset"
+                  class="flex-1 quiz-btn quiz-btn-random text-blue-700 dark:text-white px-4 py-2 rounded font-semibold border-2 transition">Generate
+                  Preset Quiz</button>
+              </div>
+            </form>
+            <style>
+              /* Preset Quiz section light/dark mode compatibility */
+              #preset-quiz-form {
+                background: #23202b;
+                border-color: #18141e;
+                color: #fff;
+              }
+
+              #preset-quiz-form input.preset-ids-input {
+                background: #23202b;
+                color: #fff;
+                border-color: #18141e;
+              }
+
+              /* Subtle button style */
+              .quiz-btn-preset {
+                color: #6366f1;
+                /* Indigo base text */
+                border: 2px solid transparent;
+                border-image: linear-gradient(90deg, #6366f1, #3b82f6) 1;
+                /* purple → blue */
+                background: transparent;
+                position: relative;
+                z-index: 1;
+                overflow: hidden;
+                transition: color 0.2s, background 0.2s, border-color 0.2s;
+              }
+
+              .quiz-btn-preset:before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                background: linear-gradient(90deg, #6366f1, #3b82f6);
+                opacity: 0;
+                transition: opacity 0.2s;
+              }
+
+              .quiz-btn-preset:hover:before,
+              .quiz-btn-preset:focus:before {
+                opacity: 1;
+              }
+
+              .quiz-btn-preset:hover,
+              .quiz-btn-preset:focus {
+                color: #fff !important;
+                border-color: transparent;
+                background: linear-gradient(90deg, #6366f1, #3b82f6);
+              }
+
+              /* Light mode */
+              body.light #preset-quiz-form {
+                background: #f7f7fa !important;
+                border-color: #d1d5db !important;
+                color: #222 !important;
+              }
+
+              body.light #preset-quiz-form input.preset-ids-input {
+                background: #fff !important;
+                color: #222 !important;
+                border-color: #d1d5db !important;
+              }
+
+              body.light .quiz-btn-preset {
+                color: #4f46e5 !important;
+                /* darker purple in light mode */
+              }
+
+              body.light .quiz-btn-preset:hover,
+              body.light .quiz-btn-preset:focus {
+                color: #fff !important;
+                background: linear-gradient(90deg, #6366f1, #3b82f6) !important;
+                border-color: transparent !important;
+              }
+            </style>
           </div>
         </section>
       </div>
@@ -205,7 +330,7 @@
           btn.className = 'px-4 py-2 rounded bg-[#23202b] text-white text-left hover:bg-[#9b59ff] focus:outline-none focus:ring-2 focus:ring-accent border border-black';
           btn.style.marginBottom = '2px';
           btn.innerHTML = `<span class='font-semibold'>Quiz ID:</span> ${q.id} <span class='ml-2 text-xs last-saved'>(Last saved: ${timeStr})</span>`;
-          btn.onclick = function() {
+          btn.onclick = function () {
             window.location.href = `quiz.html?quiz=${encodeURIComponent(q.id)}`;
           };
           list.appendChild(btn);
@@ -220,6 +345,7 @@
         z-index: 1;
         overflow: hidden;
       }
+
       .quiz-btn:before {
         content: '';
         position: absolute;
@@ -228,56 +354,79 @@
         transition: opacity 0.2s;
         opacity: 1;
       }
+
       .quiz-btn-custom {
         border-image: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1) 1;
       }
+
       .quiz-btn-custom:before {
         background: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1);
         opacity: 0;
       }
-      .quiz-btn-custom:hover:before, .quiz-btn-custom:focus:before {
+
+      .quiz-btn-custom:hover:before,
+      .quiz-btn-custom:focus:before {
         opacity: 1;
       }
-      .quiz-btn-custom:hover, .quiz-btn-custom:focus {
+
+      .quiz-btn-custom:hover,
+      .quiz-btn-custom:focus {
         color: #fff !important;
         border-color: transparent;
       }
-      .quiz-btn-custom:hover:before, .quiz-btn-custom:focus:before {
+
+      .quiz-btn-custom:hover:before,
+      .quiz-btn-custom:focus:before {
         opacity: 1;
       }
-      .quiz-btn-custom:hover, .quiz-btn-custom:focus {
+
+      .quiz-btn-custom:hover,
+      .quiz-btn-custom:focus {
         background: linear-gradient(90deg, #818cf8, #a5b4fc, #6366f1);
       }
+
       .quiz-btn-random {
         border-image: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb) 1;
       }
+
       .quiz-btn-random:before {
         background: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb);
         opacity: 0;
       }
-      .quiz-btn-random:hover:before, .quiz-btn-random:focus:before {
+
+      .quiz-btn-random:hover:before,
+      .quiz-btn-random:focus:before {
         opacity: 1;
       }
-      .quiz-btn-random:hover, .quiz-btn-random:focus {
+
+      .quiz-btn-random:hover,
+      .quiz-btn-random:focus {
         color: #fff !important;
         border-color: transparent;
         background: linear-gradient(90deg, #38bdf8, #60a5fa, #2563eb);
       }
-      .table-header-row th, .table-header {
+
+      .table-header-row th,
+      .table-header {
         transition: color 0.2s, background 0.2s;
       }
+
       body.light .table-header-row {
         background: #ececf0 !important;
       }
+
       body.light .table-header {
         color: #222 !important;
       }
+
       body:not(.light) .table-header-row {
         background: #121015 !important;
       }
+
       body:not(.light) .table-header {
-        color: rgba(255,255,255,0.8) !important;
+        color: rgba(255, 255, 255, 0.8) !important;
       }
+
       /* Light theme improvements for study form */
       body.light #quiz-form,
       body.light #random-quiz-form {
@@ -285,6 +434,7 @@
         border-color: #d1d5db !important;
         color: #222 !important;
       }
+
       body.light #quiz-form input,
       body.light #quiz-form select,
       body.light #random-quiz-form input,
@@ -293,27 +443,33 @@
         color: #222 !important;
         border-color: #d1d5db !important;
       }
+
       body.light #quiz-form button,
       body.light #quiz-form .bg-gradient-to-r {
         color: #111 !important;
       }
+
       body.light .quiz-btn {
         color: #111 !important;
       }
+
       body.light .quiz-btn:hover,
       body.light .quiz-btn:focus {
         color: #fff !important;
       }
+
       body.light #tags-accordion-toggle,
       body.light #command-terms-accordion-toggle {
         background: #ececf0 !important;
         color: #222 !important;
         border-color: #d1d5db !important;
       }
+
       body.light #tags-accordion-toggle span,
       body.light #command-terms-accordion-toggle span {
         color: #222 !important;
       }
+
       body.light #tags-accordion-content,
       body.light #command-terms-accordion-content {
         background: #fff !important;
@@ -322,4 +478,5 @@
     </style>
   </main>
 </body>
+
 </html>
