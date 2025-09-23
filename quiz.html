@@ -72,18 +72,18 @@
         const copyBtn = document.getElementById('copyFeedbackBtn');
         copyBtn.addEventListener('click', function (e) {
           // Save responses before copying
-          if (typeof saveQuizResponses === 'function') {
-            saveQuizResponses(false); // Don't show status
+          if (typeof saveResponses === 'function') {
+            saveResponses(false); // Don't show status
           }
           // Prompt header
           const promptHeader = `Provide feedback for the following Digital Society quiz responses. Below, you will find each question with the number of marks available, a sample markscheme and the user provided answer. Understand that the markscheme is not exhaustive and consider the cognitive demands of the command term when grading the response. Where a candidate is asked to give a number of responses (i.e., identify two ...), mark positively up to the maximum number of marks available and disregard incorrect answers.\n\nIn your feedback, state a summary of marks awarded and the total overall. Provide written feedback for questions where the candidate has misunderstood the question - keep it concise.\n\nFor the 8 and 12 mark essays, the characteristics of responses should be considered:\nNone: No attempt\nLimited: Ineffective, listing, unstructured.\nPartial/some: Superficial, descriptive\nAdequate: Relevant, analytical, organised\nIn-depth: Insightful, precise, lucid.\n\nAn in-depth response will demonstrate: Terminology relating to the question is used appropriately; There is a balanced analysis of the impacts and implications of the digital system on the stakeholders; References / comparisons are made with similar examples/scenarios; Any comments / opinions in the evaluation are supported/substantiated; Explicit references are made to the 3Cs (content, concepts, contexts); There is a clear structure to the response, for example an introduction, body and conclusion.\n\n`;
-          // Get quizId from URL if present, else fallback to sessionStorage
+          // Get quizId from URL
           let quizId = '';
           try {
             const params = new URLSearchParams(window.location.search);
-            quizId = params.get('quiz') || sessionStorage.getItem('currentQuizId') || '';
+            quizId = params.get('quiz') || '';
           } catch {}
-          // Get responses from localStorage
+          // Get responses and questions from localStorage
           let responsesObj = {};
           try {
             const raw = localStorage.getItem('questionBankQuizResponses');
@@ -93,24 +93,30 @@
             }
           } catch {}
           const entry = responsesObj[quizId] || { responses: [] };
-          // Get questions for this quiz from sessionStorage (or global data)
-          let questions = [];
+          // Get question bank
+          let questionBank = [];
           try {
-            const quizDataRaw = sessionStorage.getItem('customQuiz');
-            if (quizDataRaw) {
-              const quizData = JSON.parse(quizDataRaw);
-              if (Array.isArray(quizData)) questions = quizData;
-            }
-          } catch {}
+            const raw = localStorage.getItem('digitalSocietyQuestionBank');
+            if (raw) questionBank = JSON.parse(raw);
+          } catch { questionBank = []; }
+          // Get questions for this quiz from entry.questions (array of IDs)
+          let questions = [];
+          if (entry.questions && Array.isArray(entry.questions) && entry.questions.length > 0) {
+            questions = entry.questions.map(qid => questionBank.find(q => String(q.ID) === String(qid))).filter(Boolean);
+          } else if (entry.responses && Array.isArray(entry.responses) && entry.responses.length > 0) {
+            // Fallback: reconstruct questions from responses order
+            questions = entry.responses.map(resp => questionBank.find(q => String(q.ID) === String(resp.id))).filter(Boolean);
+          } else {
+            // Fallback: try to use all questions in the bank (should not happen, but prevents empty array)
+            questions = questionBank;
+          }
           // Build output for each question
           let output = '';
-          // Fallback: if no responses, get textarea values
           let textareas = document.querySelectorAll('#quiz-questions textarea');
+          console.log(questions);
           questions.forEach((q, i) => {
             let userAnswer = '';
-            if (entry.responses && entry.responses[i] && typeof entry.responses[i].value === 'string') {
-              userAnswer = entry.responses[i].value;
-            } else if (textareas[i]) {
+            if (textareas[i]) {
               userAnswer = textareas[i].value;
             }
             output += `Question ${i + 1}:\n`;
